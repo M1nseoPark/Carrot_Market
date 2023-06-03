@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div layout:fragment="content">
-  <h1>메인페이지입니다.</h1>
-</div>
+    <head>
+        <meta charset="UTF-8">
+        <title>글쓰기</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    <body>
+        <div layout:fragment="content">
+            <h1>메인페이지입니다.</h1>
+        </div>
+        <a href="/admin/item/new">상품 등록</a>
+    </body>
+

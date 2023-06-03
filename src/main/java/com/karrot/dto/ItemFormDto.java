@@ -2,12 +2,15 @@ package com.karrot.dto;
 
 import com.karrot.constant.ItemSellStatus;
 import com.karrot.entity.Item;
+import lombok.Getter;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter @Setter
 public class ItemFormDto {
 
     private Long id;
