@@ -23,10 +23,12 @@ public class ItemImg extends BaseEntity {
 
     private String repimgYn;   // 대표 이미지 여부
 
+    // 상품 엔티티와 다대일 단방향 관계로 매핑 -> 지연 로딩을 설정하여 매핑된 상품 엔티티 정보가 필요한 경우 데이터를 조회하도록 함
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="i_id")
     private Item item;
 
+    // 원본 이미지 파일명, 업데이트할 이미지 파일명, 이미지 경로를 파라미터로 입력 받아서 이미지 정보를 업데이트
     public void updateItemImg(String oriImgName, String imgName, String imgUrl) {
         this.oriImgName = oriImgName;
         this.imgName = imgName;

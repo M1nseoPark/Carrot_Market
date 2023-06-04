@@ -33,20 +33,27 @@
                 margin-bottom: 20px;
                 width: 65px;
                 height: 60px;
+                text-align: center;
                 border: 1px solid #A4A4A4;
                 box-shadow: 0px 3px 3px #bfbfbf;
             }
 
             #camera {
-                font-size: 30px;
-                margin: 13px;
+                font-size: 35px;
             }
 
-            a {
+            #count {
+                color: #FF931E;
+            }
+
+            button {
                 margin: 30px;
                 float: right;
                 font-size: 25px;
                 color: #FF931E;
+                border: none;
+                background-color: rgba(0,0,0,0);
+
             }
 
             hr {
@@ -91,6 +98,7 @@
                 margin-left: 35px;
                 font-size: 20px;
                 border: none;
+                resize: none;
             }
 
             #popup {
@@ -138,18 +146,40 @@
                 });
 
                 function bindDomEvent(){
-                    $(".custom-file-input").on("change", function() {
-                        var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-                        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-                        fileExt = fileExt.toLowerCase(); //소문자 변환
+<!--                    $(".custom-file-input").on("change", function() {-->
+<!--                        var fileName = $(this).val().split("\\").pop();  //이미지 파일명-->
+<!--                        var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출-->
+<!--                        fileExt = fileExt.toLowerCase(); //소문자 변환-->
 
-                        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-                            alert("이미지 파일만 등록이 가능합니다.");
-                            return;
+<!--                        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){-->
+<!--                            alert("이미지 파일만 등록이 가능합니다.");-->
+<!--                            return;-->
+<!--                        }-->
+
+<!--                        $(this).siblings(".custom-file-label").html(fileName);-->
+<!--                    });-->
+
+                    var fileTag = document.getElementById("image");
+                    var divTag = document.getElementById("div-preview");
+
+                    if (fileTag.files.length > 0) {
+                        for (let i = 0; i < fileTag.files.length; ++i) {
+                            let reader = new FileReader();
+                            reader.onload = function(data) {
+                                let imgTag = document.createElement('img');
+
+                                imgTag.setAttribute('src', data.target.result);
+                                imgTag.setAttribute('width', '100');
+                                imgTag.setAttribute('height', '150');
+
+                                divTag.appendChild(imgTag);
+                            }
+                            reader.readAsDataURL(fileTag.files[i]);
                         }
-
-                        $(this).siblings(".custom-file-label").html(fileName);
-                    });
+                    }
+                    else {
+                        divTag.innerHTML = "";
+                    }
                 }
 
                 function showPopup(multipleFilter) {
@@ -180,13 +210,18 @@
             <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
                 <span id="back" class="material-symbols-outlined">arrow_back</span>
                 <h2>중고거래 글쓰기</h2>
-                <a th:formaction="@{/admin/item/new}" type="submit">완료</a>
+                <button th:formaction="@{/admin/item/new}" type="submit">완료</button>
                 <hr>
                 <input type="hidden" th:field="*{id}">
 
                 <div>
-                    <div id="image">
-                        <span id="camera" class="material-symbols-outlined">photo_camera</span>
+                    <div id="image" onclick="bindDomEvent()">
+                        <span id="camera" class="material-symbols-outlined">photo_camera</span><br>
+                        <span id="count">0</span>
+                        <span>/ 10</span>
+                    </div>
+                    <div id="div-preview">
+
                     </div>
                 </div>
                 <hr>
@@ -207,24 +242,24 @@
                 <textarea class="form-control" aria-label="With textarea" th:field="*{comment}" placeholder="게시글 내용을 작성해주세요. 가짜 품목 및 판매금지품목은 게시가 제한됩니다."></textarea>
 <!--                <p th:if="${#fields.hasErrors('itemDetail')}" th:errors="*{itemDetail}" class="fieldError">Incorrect data</p>-->
 
-                <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">
-                    <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
-                        <div class="custom-file img-div">
-                            <input type="file" class="custom-file-input" name="itemImgFile">
-                            <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
-                        </div>
-                    </div>
-                </div>
+<!--                <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">-->
+<!--                    <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">-->
+<!--                        <div class="custom-file img-div">-->
+<!--                            <input type="file" class="custom-file-input" name="itemImgFile">-->
+<!--                            <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div th:if = "${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
-                    <div class="form-group" th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
-                        <div class="custom-file img-div">
-                            <input type="file" class="custom-file-input" name="itemImgFile">
-                            <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
-                            <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
-                        </div>
-                    </div>
-                </div>
+<!--                <div th:if = "${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">-->
+<!--                    <div class="form-group" th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">-->
+<!--                        <div class="custom-file img-div">-->
+<!--                            <input type="file" class="custom-file-input" name="itemImgFile">-->
+<!--                            <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">-->
+<!--                            <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align: center">
 
