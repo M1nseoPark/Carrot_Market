@@ -31,18 +31,18 @@ public class ItemController {
 
     // 상품을 등록하는 url 설정
     @PostMapping(value = "/admin/item/new")
-    public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model) {
-//                          , @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
+    public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+                          @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
 
         // 상품 등록 시 필수 값이 없다면 다시 상품 등록 페이지로 전환함
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
         }
 
-//        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
-//            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
-//            return "item/itemForm";
-//        }
+        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
+            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
+            return "item/itemForm";
+        }
 
         // 상품 저장 로직 호출 -> 매개변수로 상품 정보와 상품 이미지 정보를 담고 있는 itemImgFileList를 넘겨줌
         try {

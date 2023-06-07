@@ -26,9 +26,9 @@ public class ItemFormDto {
     private int price;
 
     @NotBlank(message = "본문은 필수 입력 값입니다")
-    private String comment;
+    private String detail;
 
-    private ItemSellStatus itemSellStatus;
+//    private ItemSellStatus itemSellStatus;
 
     // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();

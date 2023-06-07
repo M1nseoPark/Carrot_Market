@@ -26,7 +26,7 @@ class ItemRepositoryTest {
         item.setTitle("테스트 상품 판매합니다");
         item.setCate("디지털기기");
         item.setPrice(10000);
-        item.setContent("테스트 상품 판매합니다.");
+        item.setDetail("테스트 상품 판매합니다.");
         item.setStatus(ItemSellStatus.SELL);
         item.setTime(LocalDateTime.now());
         item.setLike(0);

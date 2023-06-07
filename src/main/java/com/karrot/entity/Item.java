@@ -29,8 +29,8 @@ public class Item {
     @Column(name="i_price", nullable = false)
     private int price;   // 가격
 
-    @Column(name="i_content", nullable = false)
-    private String content;   // 게시글 내용
+    @Column(name="i_detail", nullable = false)
+    private String detail;   // 게시글 내용
 
     @Column(name="i_status")
     @Enumerated(EnumType.STRING)

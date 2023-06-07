@@ -22,6 +22,7 @@ public class ItemService {
     private final ItemImgRepository itemImgRepository;
 
     public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
+
         // 상품 등록
         Item item = itemFormDto.createItem();   // 상품 등록 폼으로부터 입력 받은 데이터를 이용해 item 객체 생성
         itemRepository.save(item);   // 상품 데이터 저장
