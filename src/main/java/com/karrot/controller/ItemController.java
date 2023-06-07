@@ -46,8 +46,7 @@ public class ItemController {
 
         // 상품 저장 로직 호출 -> 매개변수로 상품 정보와 상품 이미지 정보를 담고 있는 itemImgFileList를 넘겨줌
         try {
-//            itemService.saveItem(itemFormDto, itemImgFileList);
-            itemService.saveItem(itemFormDto, null);
+            itemService.saveItem(itemFormDto, itemImgFileList);
         } catch (Exception e) {
             log.info("exception", e);
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");

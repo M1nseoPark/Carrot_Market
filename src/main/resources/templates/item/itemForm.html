@@ -241,11 +241,12 @@
 
                 <input type="text" th:field="*{title}" placeholder="제목">
                 <hr>
-                <p th:if="${#fields.hasErrors('title')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
 
                 <p id="category">카테고리</p>
                 <span id="result" th:field="*{cate}"></span>
                 <span id="expand" class="material-symbols-outlined" onclick="showPopup()">expand_more</span>
+                <p th:if="${#fields.hasErrors('cate')}" th:errors="*{cate}" class="fieldError">Incorrect data</p>
                 <hr>
 
                 <input type="number" th:field="*{price}" placeholder="가격(원)">
