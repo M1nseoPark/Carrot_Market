@@ -15,7 +15,7 @@
               font-family:sans-serif;
             }
 
-            #title {
+            #header {
                 padding-left: 30px;
                 padding-top: 30px;
                 padding-right: 30px;
@@ -24,14 +24,22 @@
 
             #back {
                 font-size: 35px;
+                vertical-align: middle;
+            }
+
+            #submit {
+                display: inline-block;
+                vertical-align: middle;
+                float: right;
             }
 
             h2 {
                 display: inline-block;
+                vertical-align: middle;
+                margin-left: 10px;
             }
 
             button {
-                float: right;
                 font-size: 25px;
                 color: #FF931E;
                 border: none;
@@ -66,7 +74,7 @@
                 width: 100%;
             }
 
-            input {
+            .write {
                 width: 95%;
                 margin-left: 35px;
                 margin-right: 35px;
@@ -87,6 +95,7 @@
 
             #result {
                 font-size: 20px;
+                border: none;
             }
 
             #expand {
@@ -204,7 +213,7 @@
                     var result = document.getElementById("result");
                     var text = obj.innerHTML;
 
-                    result.innerHTML = text
+                    result.value = text
                     popup.classList.add('hide');
                 }
             </script>
@@ -213,10 +222,10 @@
 
         <div layout:fragment="content">
             <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
-                <div id="title">
+                <div id="header">
                     <span id="back" class="material-symbols-outlined">arrow_back</span>
                     <h2>중고거래 글쓰기</h2>
-                    <div th:if="${#strings.isEmpty(itemFormDto.id)}">
+                    <div id="submit" th:if="${#strings.isEmpty(itemFormDto.id)}">
                         <button th:formaction="@{/admin/item/new}" type="submit">완료</button>
                     </div>
                 </div>
@@ -224,43 +233,27 @@
                 <hr>
                 <input type="hidden" th:field="*{id}">
 
-<!--                <div>-->
-<!--                    <label for="file">-->
-<!--                        <div id="image" onclick="bindDomEvent()">-->
-<!--                            <span id="camera" class="material-symbols-outlined">photo_camera</span><br>-->
-<!--                            <span id="count">0</span>-->
-<!--                            <span>/ 10</span>-->
-<!--                        </div>-->
-<!--                    </label>-->
-<!--                    <input type="file" name="file" id="file">-->
-<!--                    <div id="div-preview">-->
-
-<!--                    </div>-->
-<!--                </div>-->
-                <hr>
-
-                <input type="text" th:field="*{title}" placeholder="제목">
+                <input class="write" type="text" th:field="*{title}" placeholder="제목">
                 <hr>
                 <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
 
                 <p id="category">카테고리</p>
-                <span id="result" th:field="*{cate}"></span>
+                <input id="result" th:field="*{cate}">
                 <span id="expand" class="material-symbols-outlined" onclick="showPopup()">expand_more</span>
                 <p th:if="${#fields.hasErrors('cate')}" th:errors="*{cate}" class="fieldError">Incorrect data</p>
                 <hr>
 
-                <input type="number" th:field="*{price}" placeholder="가격(원)">
+                <input class="write" type="number" th:field="*{price}" placeholder="가격(원)">
                 <hr>
                 <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
 
-                <textarea aria-label="With textarea" th:field="*{detail}" placeholder="게시글 내용을 작성해주세요. 가짜 품목 및 판매금지품목은 게시가 제한됩니다."></textarea>
+                <textarea class="write" aria-label="With textarea" th:field="*{detail}" placeholder="게시글 내용을 작성해주세요. 가짜 품목 및 판매금지품목은 게시가 제한됩니다."></textarea>
                 <p th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="fieldError">Incorrect data</p>
 
                 <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">
                     <div th:each="num: ${#numbers.sequence(1,5)}">
                         <div class="custom-file img-div">
-                            <input type="file" class="custom-file-input" name="itemImgFile">
-                            <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+                            <input class="write" type="file" name="itemImgFile">
                         </div>
                     </div>
                 </div>
@@ -268,9 +261,8 @@
                 <div th:if = "${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
                     <div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
                         <div class="custom-file img-div">
-                            <input type="file" class="custom-file-input" name="itemImgFile">
-                            <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
-                            <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
+                            <input class="write" type="file" name="itemImgFile">
+                            <input class="write" type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
                         </div>
                     </div>
                 </div>

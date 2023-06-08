@@ -33,7 +33,6 @@ public class ItemController {
     @PostMapping(value = "/admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
-
         // 상품 등록 시 필수 값이 없다면 다시 상품 등록 페이지로 전환함
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
