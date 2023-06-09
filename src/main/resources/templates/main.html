@@ -4,14 +4,173 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>글쓰기</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>메인</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <style>
+            * {
+              margin: 0px;
+              padding: 0px;
+              text-decoration: none;
+              font-family:sans-serif;
+            }
+
+            #header {
+                padding-left: 30px;
+                padding-top: 30px;
+                padding-right: 30px;
+                padding-bottom: 20px;
+            }
+
+            h2 {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 10px;
+            }
+
+            #menu {
+                font-size: 35px;
+                vertical-align: middle;
+                float: right;
+            }
+
+            #search {
+                font-size: 35px;
+                vertical-align: middle;
+                float: right;
+                margin-right: 10px;
+            }
+
+            hr {
+                color: #A9A5A5;
+                width: 100%;
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+
+            #item-info {
+                display: inline-block;
+                padding-left: 20px;
+            }
+
+            #item-image {
+                width: 250px;
+                height: 250px;
+                margin-left: 40px;
+            }
+
+            .item-text {
+                font-size: 20px;
+                color: #000000;
+            }
+
+            #item-like {
+                float: right;
+                padding-right: 50px;
+            }
+
+            #like-icon {
+                font-size: 30px;
+                color: black;
+            }
+
+            #add {
+                position: sticky;
+                bottom: 90px;
+                float: right;
+                margin-right: 2.5%;
+                font-size: 90px;
+                color: #FF931E;
+                font-variation-settings:
+                    'FILL' 1,
+                    'wght' 400,
+                    'GRAD' 0,
+                    'opsz' 48
+            }
+
+            #footer {
+                text-align: center;
+                margin-bottom: 10px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+
+            #home {
+                display: inline-block;
+                margin-right: 70px;
+            }
+
+            #person {
+                display: inline-block;
+            }
+
+            #home-bt {
+                color: black;
+                font-size: 60px;
+                vertical-align: middle;
+                font-variation-settings:
+                    'FILL' 1,
+                    'wght' 400,
+                    'GRAD' 0,
+                    'opsz' 48
+            }
+
+            #person-bt {
+                font-size: 60px;
+                vertical-align: middle;
+            }
+        </style>
     </head>
 
     <body>
         <div layout:fragment="content">
-            <h1>메인페이지입니다.</h1>
+            <div id="header">
+                <h2>개발자님 동네</h2>
+                <span id="menu" class="material-symbols-outlined">menu</span>
+                <span id="search" class="material-symbols-outlined">search</span>
+            </div>
+            <hr>
+
+            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+                <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+            </div>
+
+            <div class="row">
+                <th:block th:each="item, status: ${items.getContent()}">
+                    <div class="col-md-4 margin">
+                        <div class="card">
+                            <a th:href="'/item/' +${item.id}">
+                                <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                                <div id="item-info">
+                                    <p class="item-text">[[${item.title}]]</p>
+                                    <p class="item-text">[[${item.price}]]원</p>
+                                </div>
+                                <div id="item-like">
+                                    <span id="like-icon" class="material-symbols-outlined">favorite</span>
+                                    <span class="item-text">[[${item.like}]]</span>
+                                </div>
+                                <hr>
+                            </a>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
         </div>
-        <a href="/admin/item/new">상품 등록</a>
+
+        <a id="add" class="material-symbols-outlined" href="/admin/item/new">add_circle</a>
+
+        <div id="footer">
+            <div id="home">
+                <a id="home-bt" class="material-symbols-outlined" href="/admin/item/new">home</a><br>
+                <span>홈</span>
+            </div>
+            <div id="person">
+                <a id="person-bt" class="material-symbols-outlined">person</a><br>
+                <span>나의 당근</span>
+            </div>
+        </div>
     </body>
+</html>
 

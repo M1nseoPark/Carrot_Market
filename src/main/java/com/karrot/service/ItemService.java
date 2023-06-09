@@ -1,11 +1,15 @@
 package com.karrot.service;
 
 import com.karrot.dto.ItemFormDto;
+import com.karrot.dto.ItemSearchDto;
+import com.karrot.dto.MainItemDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.ItemImg;
 import com.karrot.repository.ItemImgRepository;
 import com.karrot.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,5 +43,11 @@ public class ItemService {
         }
 
         return item.getId();
+    }
+
+    // 메인 페이지에 보여줄 상품 데이터 조회
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 }
