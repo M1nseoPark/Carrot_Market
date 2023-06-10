@@ -30,7 +30,6 @@ class ItemRepositoryTest {
         item.setStatus(ItemSellStatus.SELL);
         item.setTime(LocalDateTime.now());
         item.setLike(0);
-        item.setMember("홍길동");
     }
 
 }

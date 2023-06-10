@@ -1,6 +1,7 @@
 package com.karrot.service;
 
 import com.karrot.dto.ItemFormDto;
+import com.karrot.dto.ItemImgDto;
 import com.karrot.dto.ItemSearchDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.entity.Item;
@@ -8,13 +9,14 @@ import com.karrot.entity.ItemImg;
 import com.karrot.repository.ItemImgRepository;
 import com.karrot.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,9 +47,40 @@ public class ItemService {
         return item.getId();
     }
 
+//    public Item findItem(Long id) {
+//        return itemRepository.findById(id);
+//    }
+
+    @Transactional(readOnly = true)
+    public ItemFormDto getItemDtl(Long itemId) {
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);   // 등록순으로 가지고 오기 위해 상품 이미지 아이디 오름차순으로 가져옴
+        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+        for (ItemImg itemImg : itemImgList) {
+            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
+            itemImgDtoList.add(itemImgDto);
+        }
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(EntityNotFoundException::new);
+        ItemFormDto itemFormDto = ItemFormDto.of(item);
+        itemFormDto.setItemImgDtoList(itemImgDtoList);
+        return itemFormDto;
+    }
+
     // 메인 페이지에 보여줄 상품 데이터 조회
     @Transactional(readOnly = true)
-    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-        return itemRepository.getMainItemPage(itemSearchDto, pageable);
+    public List<MainItemDto> getMainItemList(ItemSearchDto itemSearchDto) {
+        return itemRepository.getMainItemList(itemSearchDto);
+    }
+
+    // 관심 개수 증가
+    @Transactional
+    public void addLike(Item item) {
+        item.addLike();
+    }
+
+    @Transactional
+    public void deleteLike(Item item) {
+        item.deleteLike();
     }
 }

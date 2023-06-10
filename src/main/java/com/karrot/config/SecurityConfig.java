@@ -18,7 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/members/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/main")
                 .usernameParameter("email")
                 .failureUrl("/members/login/error")
                 .and()

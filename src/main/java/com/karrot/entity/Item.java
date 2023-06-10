@@ -42,7 +42,15 @@ public class Item {
     @Column(name="i_like")
     private int like;   // 관심(하트 숫자)
 
-    @Column(name="i_member")
-    private String member;   // 판매자 닉네임
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "m_id")
+    private Member member;   // 판매자 정보
 
+    public void addLike() {
+        this.like++;
+    }
+
+    public void deleteLike() {
+        this.like--;
+    }
 }

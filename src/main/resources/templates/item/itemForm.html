@@ -25,6 +25,8 @@
             #back {
                 font-size: 35px;
                 vertical-align: middle;
+                border: none;
+                background-color: rgba(0,0,0,0);
             }
 
             #submit {
@@ -39,7 +41,7 @@
                 margin-left: 10px;
             }
 
-            button {
+            #submit-bt {
                 font-size: 25px;
                 color: #FF931E;
                 border: none;
@@ -223,10 +225,10 @@
         <div layout:fragment="content">
             <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
                 <div id="header">
-                    <span id="back" class="material-symbols-outlined">arrow_back</span>
+                    <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
                     <h2>중고거래 글쓰기</h2>
                     <div id="submit" th:if="${#strings.isEmpty(itemFormDto.id)}">
-                        <button th:formaction="@{/admin/item/new}" type="submit">완료</button>
+                        <button id="submit-bt" th:formaction="@{/admin/item/new}" type="submit">완료</button>
                     </div>
                 </div>
 
