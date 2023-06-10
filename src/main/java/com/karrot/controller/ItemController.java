@@ -1,10 +1,17 @@
 package com.karrot.controller;
 
 import com.karrot.dto.ItemFormDto;
+import com.karrot.entity.Item;
+import com.karrot.entity.LikeItem;
+import com.karrot.entity.Member;
+import com.karrot.repository.ItemLikeRepository;
+import com.karrot.service.ItemLikeService;
 import com.karrot.service.ItemService;
 import com.karrot.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +28,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final MemberService memberService;
+    private final ItemLikeService itemLikeService;
 
     @GetMapping(value = "/admin/item/new")
     public String itemForm(Model model) {
@@ -64,16 +72,16 @@ public class ItemController {
     }
 
     // 좋아요 반영하기
-//    @PostMapping(value = "/{itemId}/addLike")
-//    @ResponseBody
-//    public String addLike(@PathVariable Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
-//        Member member = memberService.findMember(userDetails.getUsername());
-//        Item item = itemService.findItem(itemId);
-//
-//        itemLikeService.addLike(new LikeItem(member, item));
-//
-//        itemService.addLike(item);
-//
-//        return "item/itemDtl";
-//    }
+    @GetMapping(value = "item/{itemId}/addLike")
+    @ResponseBody
+    public String addLike(@PathVariable Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
+        Member member = memberService.findMember(userDetails.getUsername());
+        Item item = itemService.findItem(itemId);
+
+        itemLikeService.addLike(new LikeItem(member, item));
+
+        itemService.addLike(item);
+
+        return "success";
+    }
 }

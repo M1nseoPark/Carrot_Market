@@ -97,14 +97,14 @@ function addLike() {
     var itemId = $('#itemId').val();
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: '/item/'+itemId+'/addLike',
         contentType:'application/json; charset=utf-8'
     }).done(function(msg) {
         console.log("좋아요 완료");
         $('#like-icon').attr('id','like-icon-full');
-        heart.init();
-    }).fail(function (error) {
+    }).fail(function(error) {
+        console.log('/item/'+itemId+'/addLike');
         console.log("실패");
         console.log(error);
         alert(JSON.stringify(error));

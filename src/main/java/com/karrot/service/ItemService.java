@@ -47,9 +47,10 @@ public class ItemService {
         return item.getId();
     }
 
-//    public Item findItem(Long id) {
-//        return itemRepository.findById(id);
-//    }
+    public Item findItem(Long id) {
+        return itemRepository.findById(id)
+                .orElseThrow();
+    }
 
     @Transactional(readOnly = true)
     public ItemFormDto getItemDtl(Long itemId) {
@@ -77,10 +78,5 @@ public class ItemService {
     @Transactional
     public void addLike(Item item) {
         item.addLike();
-    }
-
-    @Transactional
-    public void deleteLike(Item item) {
-        item.deleteLike();
     }
 }

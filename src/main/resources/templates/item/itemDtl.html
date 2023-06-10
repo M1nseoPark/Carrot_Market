@@ -72,6 +72,7 @@
 
           .text {
             font-size: 18px;
+            margin-right: 20px;
           }
 
           .text-2 {
@@ -103,6 +104,7 @@
           }
 
           #like-icon {
+            margin-right: 30px;
             font-size: 40px;
             vertical-align: middle;
             border: none;
@@ -110,6 +112,7 @@
           }
 
           #like-icon-full {
+            margin-right: 30px;
             color: #E843B9;
             font-size: 40px;
             vertical-align: middle;
@@ -120,12 +123,6 @@
               'wght' 400,
               'GRAD' 0,
               'opsz' 48
-          }
-
-          .v-line {
-            display: inline-block;
-            border-left: solid #A9A5A5;
-            height : 50px;
           }
 
           #chatBt {
@@ -142,7 +139,7 @@
       </head>
 
       <body>
-          <div layout:fragment="content">
+            <div layout:fragment="content">
             <div id="header">
               <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
               <a id="home" class="material-symbols-outlined" href="/">home</a>
@@ -191,12 +188,12 @@
 
             <div id="footer">
               <button id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
-              <div class='v-line'></div>
-              <span>가격</span>
+              <span class="text">[[${item.price}]]원</span>
               <button id="chatBt">채팅하기</button>
             </div>
           </div>
 
+          <script src="http://code.jquery.com/jquery-latest.js"></script>
           <script src="/js/itemDtl.js"></script>
       </body>
 </html>
