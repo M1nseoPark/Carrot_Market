@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <head>
@@ -53,7 +54,10 @@
             }
 
             .text {
+              color: black;
               font-size: 25px;
+              margin-left: 70px;
+              vertical-align: middle;
             }
 
             #edit {
@@ -67,8 +71,12 @@
             }
 
             #menu-list {
-              margin-left: 30px;
+              margin-left: 60px;
               padding-top: 30px;
+            }
+
+            .menu-item {
+              margin-bottom: 60px;
             }
 
             #description {
@@ -107,7 +115,7 @@
 
             #logout-bt {
               border: none;
-              font-size: 25px;
+              font-size: 30px;
               background-color: rgba(0,0,0,0);
             }
 
@@ -140,6 +148,7 @@
             }
 
             #person-bt {
+                color: black;
                 font-size: 60px;
                 vertical-align: middle;
             }
@@ -157,21 +166,21 @@
 
             <div id="profile">
                 <span class="text">닉네임</span><br>
-                <button id="edit">프로필 수정</button>
+                <button id="edit" onclick="location.href='/mypage/edit'">프로필 수정</button>
             </div>
 
             <div id="menu-list">
-                <div>
+                <div class="menu-item">
                     <button id="description" class="material-symbols-outlined">description</button>
                     <a class="text">판매내역</a>
                 </div>
 
-                <div>
+                <div class="menu-item">
                     <button id="favorite" class="material-symbols-outlined">favorite</button>
-                    <a class="text">관심목록</a>
+                    <a class="text" href="/mypage/like">관심목록</a>
                 </div>
 
-                <div>
+                <div class="menu-item">
                     <button id="chat" class="material-symbols-outlined">chat</button>
                     <a class="text">채팅목록</a>
                 </div>
@@ -187,7 +196,7 @@
                     <span>홈</span>
                 </div>
                 <div id="person">
-                    <a id="person-bt" class="material-symbols-outlined">person</a><br>
+                    <a id="person-bt" class="material-symbols-outlined" href="/mypage">person</a><br>
                     <span>나의 당근</span>
                 </div>
             </div>
