@@ -20,6 +20,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name="m_img_id")
+    private MemberImg memberImg;
+
     @Column(unique = true)
     private String email;
 
@@ -41,5 +45,11 @@ public class Member {
         member.setPhone(memberFormDto.getPhone());
         member.setNick(memberFormDto.getNick());
         return member;
+    }
+
+    // 회원의 닉네임 수정
+    public Member updateMemberNick(String nick) {
+        this.nick = nick;
+        return this;
     }
 }
