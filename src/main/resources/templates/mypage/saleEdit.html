@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+      <head>
+          <meta name="_csrf" th:content="${_csrf.token}"/>
+          <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+          <meta charset="UTF-8">
+          <title>상세페이지</title>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+          <style>
+              * {
+                margin: 0px;
+                padding: 0px;
+                text-decoration: none;
+                font-family:sans-serif;
+              }
+
+              #header {
+                padding-left: 15px;
+                padding-top: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+              }
+
+              #back {
+                font-size: 40px;
+                vertical-align: middle;
+                border: none;
+                background-color: rgba(0,0,0,0);
+              }
+
+              #home {
+                color: black;
+                font-size: 40px;
+                margin-left: 10px;
+                vertical-align: middle;
+                font-variation-settings:
+                  'FILL' 1,
+                  'wght' 400,
+                  'GRAD' 0,
+                  'opsz' 48
+              }
+
+              #menu {
+                font-size: 40px;
+                vertical-align: middle;
+                float: right;
+              }
+
+              #profile-img {
+                width: 50px;
+                height: 50px;
+                margin-right: 15px;
+                vertical-align: middle;
+              }
+
+              #item-img {
+                margin-left: 40px;
+                height: 500px;
+              }
+
+              hr {
+                color: #A9A5A5;
+                width: 100%;
+                margin-top: 15px;
+                margin-bottom: 20px;
+              }
+
+              #seller {
+                padding-left: 40px;
+              }
+
+              select {
+                margin-left: 40px;
+                margin-bottom: 10px;
+                width: 100px;
+                font-size: 30px;
+              }
+
+              table {
+                width: 100%;
+                margin-left: 40px;
+                margin-right: 40px;
+              }
+
+              tr {
+                height: 35px;
+              }
+
+              .text {
+                font-size: 18px;
+                margin-right: 20px;
+              }
+
+              .text-2 {
+                color: #868686;
+                font-size: 18px;
+              }
+
+              #seller-item {
+                margin-left: 40px;
+                margin-right: 50px;
+                margin-bottom: 100px;
+              }
+
+              #seller-title {
+                margin-bottom: 20px;
+              }
+
+              #seller-nick {
+                font-size: 18px;
+              }
+
+              .seller-text {
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 25px;
+              }
+
+              #all-show {
+                color: #868686;
+                font-size: 18px;
+                float: right;
+              }
+
+              .seller-img {
+                width: 300px;
+                height: 200px;
+              }
+
+              #footer {
+                padding-left: 20px;
+                padding-bottom: 20px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background-color: #ffffff;
+              }
+
+              #price {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 23px;
+              }
+
+              #like-icon {
+                margin-right: 30px;
+                font-size: 40px;
+                vertical-align: middle;
+                border: none;
+                background-color: rgba(0,0,0,0);
+                vertical-align: middle;
+              }
+
+              #like-icon-full {
+                margin-right: 30px;
+                color: #E843B9;
+                font-size: 40px;
+                vertical-align: middle;
+                border: none;
+                background-color: rgba(0,0,0,0);
+                font-variation-settings:
+                  'FILL' 1,
+                  'wght' 400,
+                  'GRAD' 0,
+                  'opsz' 48
+              }
+
+              #chatBt {
+                float: right;
+                width: 150px;
+                height: 50px;
+                margin-right: 50px;
+                background-color: #FF931E;
+                color:white;
+                font-size: 17px;
+                border:none;
+              }
+          </style>
+      </head>
+
+      <body>
+          <div layout:fragment="content">
+              <div id="header">
+                  <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
+                  <a id="home" class="material-symbols-outlined" href="/">home</a>
+                  <span id="menu" class="material-symbols-outlined">more_vert</span>
+              </div>
+
+              <input type="hidden" id="itemId" th:value="${item.id}">
+
+              <div class="d-flex">
+                  <div class="repImgDiv">
+                  <img th:src="${item.itemImgDtoList[0].imgUrl}" id="item-img" th:alt="${item.title}">
+              </div>
+              <hr>
+
+              <div id="seller">
+                  <img id="profile-img" src="images/user.png">
+                  <span class="text">[[${sellerNick}]]</span>
+              </div>
+              <hr>
+
+              <select>
+                  <option>판매중</option>
+                  <option>예약중</option>
+                  <option>판매완료</option>
+              </select>
+              <table>
+                  <tr>
+                      <td class="text">[[${item.title}]]</td>
+                      <td class="text">[[${item.price}]]원</td>
+                  </tr>
+
+                  <tr>
+                      <td class="text-2">[[${item.cate}]]</td>
+                      <td class="text-2">[[${item.time}]]</td>
+                  </tr>
+
+                  <tr>
+                      <td class="text" colspan="2">[[${item.detail}]]</td>
+                  </tr>
+
+                  <tr>
+                      <td></td>
+                  </tr>
+              </table>
+              <hr>
+            </div>
+
+            <div id="footer">
+                <button id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
+                <h3 id="price">[[${item.price}]]원</h3>
+                <button id="chatBt">관련 채팅보기</button>
+            </div>
+          </div>
+      </body>
+</html>
