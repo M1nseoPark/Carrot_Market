@@ -44,6 +44,13 @@
               'opsz' 48
           }
 
+          #profile-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            vertical-align: middle;
+          }
+
           #item-img {
             margin-left: 40px;
             height: 500px;
@@ -86,6 +93,10 @@
             margin-bottom: 100px;
           }
 
+          #seller-nick {
+            font-size: 18px;
+          }
+
           #all-show {
             border: none;
             background-color: rgba(0,0,0,0);
@@ -103,12 +114,19 @@
             background-color: #ffffff;
           }
 
+          #price {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 23px;
+          }
+
           #like-icon {
             margin-right: 30px;
             font-size: 40px;
             vertical-align: middle;
             border: none;
             background-color: rgba(0,0,0,0);
+            vertical-align: middle;
           }
 
           #like-icon-full {
@@ -154,7 +172,8 @@
               <hr>
 
               <div id="seller">
-                <span class="text">닉네임</span>
+                  <img id="profile-img" src="images/user.png">
+                  <span class="text">[[${owner}]]</span>
               </div>
               <hr>
 
@@ -166,7 +185,7 @@
 
                 <tr>
                   <td class="text-2">[[${item.cate}]]</td>
-                  <td class="text-2">게시시간</td>
+                  <td class="text-2">[[${item.time}]]</td>
                 </tr>
 
                 <tr>
@@ -180,15 +199,15 @@
               <hr>
 
               <div id="seller-item">
-                <span class="text">닉네임</span>
-                <span class="text">님의 판매 상품</span>
-                <button id="all-show">모두보기</button>
+                  <span id="seller-nick">[[${owner}]]</span>
+                  <span class="text">님의 판매 상품</span>
+                  <button id="all-show">모두보기</button>
               </div>
             </div>
 
             <div id="footer">
               <button id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
-              <span class="text">[[${item.price}]]원</span>
+              <h3 id="price">[[${item.price}]]원</h3>
               <button id="chatBt">채팅하기</button>
             </div>
           </div>

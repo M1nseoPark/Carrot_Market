@@ -38,7 +38,7 @@ public class ItemController {
 
     // 상품을 등록하는 url 설정
     @PostMapping(value = "/admin/item/new")
-    public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+    public String itemNew(@AuthenticationPrincipal UserDetails userDetails, @Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
         // 상품 등록 시 필수 값이 없다면 다시 상품 등록 페이지로 전환함
         if (bindingResult.hasErrors()) {
@@ -52,7 +52,8 @@ public class ItemController {
 
         // 상품 저장 로직 호출 -> 매개변수로 상품 정보와 상품 이미지 정보를 담고 있는 itemImgFileList를 넘겨줌
         try {
-            itemService.saveItem(itemFormDto, itemImgFileList);
+            Member member = memberService.findMember(userDetails.getUsername());
+            itemService.saveItem(itemFormDto, itemImgFileList, member);
         } catch (Exception e) {
             log.info("exception", e);
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
@@ -68,6 +69,7 @@ public class ItemController {
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         model.addAttribute("item", itemFormDto);
+        model.addAttribute("owner", itemFormDto.getMember().getNick());
         return "item/itemDtl";
     }
 

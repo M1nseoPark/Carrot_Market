@@ -2,6 +2,7 @@ package com.karrot.dto;
 
 import com.karrot.constant.ItemSellStatus;
 import com.karrot.entity.Item;
+import com.karrot.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -36,6 +37,8 @@ public class ItemFormDto {
     private LocalDateTime time;
 
     private int like;
+
+    private Member member;
 
     // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();

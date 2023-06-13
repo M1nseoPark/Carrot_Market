@@ -62,16 +62,19 @@
             .item-text {
                 font-size: 20px;
                 color: #000000;
+                vertical-align: middle;
             }
 
             #item-like {
                 float: right;
                 padding-right: 50px;
+                vertical-align: middle;
             }
 
             #like-icon {
                 font-size: 30px;
                 color: black;
+                vertical-align: middle;
             }
 
             #add {
@@ -127,7 +130,7 @@
     <body>
         <div layout:fragment="content">
             <div id="header">
-                <h2>님 동네</h2>
+                <h2 th:text="${member.nick}+' 님 동네'"></h2>
                 <span id="menu" class="material-symbols-outlined">menu</span>
                 <span id="search" class="material-symbols-outlined">search</span>
             </div>

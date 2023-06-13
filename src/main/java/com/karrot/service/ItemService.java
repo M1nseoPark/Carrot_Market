@@ -1,11 +1,13 @@
 package com.karrot.service;
 
+import com.karrot.constant.ItemSellStatus;
 import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.ItemImgDto;
 import com.karrot.dto.ItemSearchDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.ItemImg;
+import com.karrot.entity.Member;
 import com.karrot.repository.ItemImgRepository;
 import com.karrot.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +30,13 @@ public class ItemService {
     private final ItemImgService itemImgService;
     private final ItemImgRepository itemImgRepository;
 
-    public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
+    public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList, Member member) throws Exception {
 
         // 상품 등록
         Item item = itemFormDto.createItem();   // 상품 등록 폼으로부터 입력 받은 데이터를 이용해 item 객체 생성
+        item.setMember(member);
+        item.setStatus(ItemSellStatus.SELL);
+        item.setTime(LocalDateTime.now());
         itemRepository.save(item);   // 상품 데이터 저장
 
         // 이미지 등록
