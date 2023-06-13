@@ -8,13 +8,12 @@ import java.util.List;
 
 public interface ItemRepositoryCustom {
 
-//    List<Item> findMyItem(Long memberId);
-//
-//    List<Item> likeMyItem(Long memberId);
-
     // 메인 페이지에 보여줄 상품 리스트 가져오기
     List<MainItemDto> getMainItemList(ItemSearchDto itemSearchDto);
 
     // 관심목록 페이지에 보여줄 상품 리스트 가져오기
     List<MainItemDto> getLikeItemList(Long memberId);
+
+    // 판매상품 페이지에 보여줄 상품 리스트 가져오기
+    List<MainItemDto> getOwnerItemList(Long ownerId);
 }

@@ -80,6 +80,12 @@ public class ItemService {
         return itemRepository.getMainItemList(itemSearchDto);
     }
 
+    // 판매상품 목록 페이지에 보여줄 상품 데이터 조회
+    @Transactional(readOnly = true)
+    public List<MainItemDto> getOwnerItemList(Long ownerId) {
+        return itemRepository.getOwnerItemList(ownerId);
+    }
+
     // 관심 개수 증가
     @Transactional
     public void addLike(Item item) {

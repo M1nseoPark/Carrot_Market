@@ -155,18 +155,16 @@
         <div class="row">
             <th:block th:each="item : ${items}">
                 <div>
-                    <a th:href="'/item/' +${item.id}">
-                        <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
-                        <div id="item-info">
-                            <p class="item-text">[[${item.title}]]</p>
-                            <p class="item-text">[[${item.price}]]원</p>
-                        </div>
-                        <div id="item-like" th:if="${item.like != 0}">
-                            <span id="like-icon" class="material-symbols-outlined">favorite</span>
-                            <span class="item-text">[[${item.like}]]</span>
-                        </div>
-                        <hr>
-                    </a>
+                    <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                    <div id="item-info">
+                        <p class="item-text">[[${item.title}]]</p>
+                        <p class="item-text">[[${item.price}]]원</p>
+                    </div>
+                    <div id="item-like" th:if="${item.like != 0}">
+                        <span id="like-icon" class="material-symbols-outlined">favorite</span>
+                        <span class="item-text">[[${item.like}]]</span>
+                    </div>
+                    <hr>
                 </div>
             </th:block>
         </div>

@@ -23,16 +23,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-//    @Override
-//    public List<Item> findMyProducts(Long memberId) {
-//        return queryFactory
-//                .select(product)
-//                .from(product)
-//                .join(product.member, member)
-//                .where(product.member.id.eq(memberId))
-//                .fetch();
-//    }
-
     @Override
     public List<MainItemDto> getMainItemList(ItemSearchDto itemSearchDto) {
 
@@ -80,6 +70,27 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 .from(likeItem)
                                 .where(likeItem.member.id.eq(memberId))
                 ))
+                .fetch();
+    }
+
+    @Override
+    public List<MainItemDto> getOwnerItemList(Long ownerId) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        return queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.title,
+                                item.detail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.like)
+                )
+                .from(itemImg)
+                .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId))
                 .fetch();
     }
 }

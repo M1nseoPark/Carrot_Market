@@ -1,10 +1,10 @@
 package com.karrot.controller;
 
 import com.karrot.dto.ItemFormDto;
+import com.karrot.dto.MainItemDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.LikeItem;
 import com.karrot.entity.Member;
-import com.karrot.repository.ItemLikeRepository;
 import com.karrot.service.ItemLikeService;
 import com.karrot.service.ItemService;
 import com.karrot.service.MemberService;
@@ -71,6 +71,14 @@ public class ItemController {
         model.addAttribute("item", itemFormDto);
         model.addAttribute("owner", itemFormDto.getMember().getNick());
         return "item/itemDtl";
+    }
+
+    @GetMapping(value = "/item/{itemId}/{ownerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
+    public String itemOwner(Model model, @PathVariable("itemId") Long itemId, @PathVariable("ownerId") Long ownerId,
+                               @AuthenticationPrincipal UserDetails userDetails) {
+        List<MainItemDto> ownerList = itemService.getOwnerItemList(ownerId);
+        model.addAttribute("items", ownerList);
+        return "item/itemMember";
     }
 
     // 좋아요 반영하기

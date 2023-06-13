@@ -34,6 +34,91 @@
                 vertical-align: middle;
                 margin-left: 10px;
             }
+
+            nav {
+                font-size: 20px;
+                position: relative;
+            }
+
+            nav ul{
+                padding: 0;
+                margin: 0 auto;
+                width: auto;
+            }
+
+            nav a {
+                line-height: 50px;
+                height: 50px;
+            }
+
+            nav li a {
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            nav li:last-child a {
+                border-right: 0;
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+                background-color: #fff;
+                text-align: center;
+            }
+
+            li {
+                display: inline-block;
+            }
+
+            li a{
+                color: #868686;
+                text-align: center;
+                padding: 14.5px 16px;
+                text-decoration: none;
+            }
+
+            li a:hover{
+                color: #000000;
+                font-weight:normal;
+            }
+
+            hr {
+                color: #A9A5A5;
+                width: 100%;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            #item-info {
+                display: inline-block;
+                padding-left: 20px;
+            }
+
+            #item-image {
+                width: 250px;
+                height: 250px;
+                margin-left: 40px;
+            }
+
+            .item-text {
+                font-size: 20px;
+                color: #000000;
+                vertical-align: middle;
+            }
+
+            #item-like {
+                float: right;
+                padding-right: 50px;
+                vertical-align: middle;
+            }
+
+            #like-icon {
+                font-size: 30px;
+                color: black;
+                vertical-align: middle;
+            }
           </style>
       </head>
 
@@ -43,5 +128,32 @@
             <h2>판매상품 보기</h2>
           </div>
 
+          <div class="menu">
+              <nav class="clearfix">
+                  <ul class="clearfix">
+                      <li><a href="http://www._____.com">전체</a></li> <!--""<-여기 부분에 URL 작성하면 됨-->
+                      <li><a href="http://www._____.com/About">판매중</a></li>
+                      <li><a href="http://www._____.com/Project">거래완료</a></li>
+                  </ul>
+              </nav>
+          </div>
+          <hr>
+
+          <div class="row">
+              <th:block th:each="item : ${items}">
+                  <div>
+                      <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                      <div id="item-info">
+                          <p class="item-text">[[${item.title}]]</p>
+                          <p class="item-text">[[${item.price}]]원</p>
+                      </div>
+                      <div id="item-like" th:if="${item.like != 0}">
+                          <span id="like-icon" class="material-symbols-outlined">favorite</span>
+                          <span class="item-text">[[${item.like}]]</span>
+                      </div>
+                      <hr>
+                  </div>
+              </th:block>
+          </div>
       </body>
 </html>

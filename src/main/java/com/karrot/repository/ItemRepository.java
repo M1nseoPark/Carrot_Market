@@ -16,4 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 
     // 관심목록 페이지에 보여줄 상품 리스트 가져오기
     List<MainItemDto> getLikeItemList(Long memberId);
+
+    // 판매상품 페이지에 보여줄 상품 리스트 가져오기
+    List<MainItemDto> getOwnerItemList(Long ownerId);
 }
