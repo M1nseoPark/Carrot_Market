@@ -86,6 +86,12 @@ public class ItemService {
         return itemRepository.getSellerItemList(sellerId);
     }
 
+    // 판매 상태 변경
+    @Transactional
+    public void changeItemStatus(Item item, ItemSellStatus status) {
+        item.changeStatus(status);
+    }
+
     // 관심 개수 증가
     @Transactional
     public void addLike(Item item) {

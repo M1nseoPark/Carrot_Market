@@ -51,4 +51,8 @@ public class Item {
     public void addLike() {
         this.like++;
     }
+
+    public void changeStatus(ItemSellStatus status) {
+        this.status = status;
+    }
 }

@@ -129,6 +129,7 @@
 
             .status-bt {
                 font-size: 20px;
+                color: black;
             }
 
             th, td {
@@ -168,8 +169,8 @@
                     </div>
                     <table>
                         <tr>
-                            <td><a class="status-bt">예약중으로 변경</a></td>
-                            <td><a class="status-bt">거래완료로 변경</a></td>
+                            <td><a class="status-bt" th:href="'sale/'+${item.id}+'/RESERVE'">예약중으로 변경</a></td>
+                            <td><a class="status-bt" th:href="'sale/'+${item.id}+'/SOLD_OUT'">거래완료로 변경</a></td>
                         </tr>
                     </table>
                 </div>

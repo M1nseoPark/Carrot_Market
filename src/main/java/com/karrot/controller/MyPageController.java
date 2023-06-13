@@ -1,18 +1,19 @@
 package com.karrot.controller;
 
+import com.karrot.constant.ItemSellStatus;
 import com.karrot.dto.MainItemDto;
 import com.karrot.dto.MemberDto;
+import com.karrot.entity.Item;
 import com.karrot.entity.Member;
 import com.karrot.service.ItemLikeService;
+import com.karrot.service.ItemService;
 import com.karrot.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
 public class MyPageController {
 
     private final MemberService memberService;
+    private final ItemService itemService;
     private final ItemLikeService itemLikeService;
 
     @GetMapping
@@ -37,6 +39,7 @@ public class MyPageController {
         return "mypage";
     }
 
+    // 관심목록 페이지 이동
     @GetMapping(value = "/like")
     public String myLikePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Member member = memberService.findMember(userDetails.getUsername());
@@ -45,6 +48,28 @@ public class MyPageController {
         return "mypage/likeList";
     }
 
+    // 판매내역 페이지 이동
+    @GetMapping(value = "/sale")
+    public String mySalePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Member member = memberService.findMember(userDetails.getUsername());
+        List<MainItemDto> items = itemService.getSellerItemList(member.getId());
+        model.addAttribute("items", items);
+        return "mypage/saleList";
+    }
+
+    // 판매내역 페이지에서 판매상태 변경
+    @GetMapping(value = "/sale/{itemId}/{status}")
+    @ResponseBody
+    public String mySaleStatus(@PathVariable("itemId") Long itemId, @PathVariable("status") ItemSellStatus status) {
+        try {
+            Item item = itemService.findItem(itemId);
+            itemService.changeItemStatus(item, status);
+        } catch (Exception e) {
+        }
+        return "success";
+    }
+
+    // 프로필 수정 페이지 이동
     @GetMapping(value = "/edit")
     public String editPage() {
         return "mypage/editProfile";
