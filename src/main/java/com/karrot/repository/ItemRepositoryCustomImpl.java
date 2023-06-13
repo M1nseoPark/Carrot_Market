@@ -74,7 +74,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     }
 
     @Override
-    public List<MainItemDto> getOwnerItemList(Long ownerId) {
+    public List<MainItemDto> getSellerItemList(Long ownerId) {
 
         QItem item = QItem.item;
         QItemImg itemImg = QItemImg.itemImg;

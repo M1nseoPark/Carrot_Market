@@ -68,16 +68,20 @@ public class ItemController {
     @GetMapping(value = "/item/{itemId}")
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
+
         model.addAttribute("item", itemFormDto);
-        model.addAttribute("owner", itemFormDto.getMember().getNick());
+        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
+        model.addAttribute("seller", sellerList);
+
         return "item/itemDtl";
     }
 
-    @GetMapping(value = "/item/{itemId}/{ownerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
-    public String itemOwner(Model model, @PathVariable("itemId") Long itemId, @PathVariable("ownerId") Long ownerId,
-                               @AuthenticationPrincipal UserDetails userDetails) {
-        List<MainItemDto> ownerList = itemService.getOwnerItemList(ownerId);
-        model.addAttribute("items", ownerList);
+    // 판매상품 보기 페이지
+    @GetMapping(value = "/item/{itemId}/{sellerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
+    public String itemSeller(Model model, @PathVariable("sellerId") Long sellerId) {
+        List<MainItemDto> sellerList = itemService.getSellerItemList(sellerId);
+        model.addAttribute("items", sellerList);
         return "item/itemMember";
     }
 

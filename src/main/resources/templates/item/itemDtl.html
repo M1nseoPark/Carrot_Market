@@ -93,14 +93,29 @@
             margin-bottom: 100px;
           }
 
+          #seller-title {
+            margin-bottom: 20px;
+          }
+
           #seller-nick {
             font-size: 18px;
+          }
+
+          .seller-text {
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 25px;
           }
 
           #all-show {
             color: #868686;
             font-size: 18px;
             float: right;
+          }
+
+          .seller-img {
+            width: 300px;
+            height: 200px;
           }
 
           #footer {
@@ -171,7 +186,7 @@
 
               <div id="seller">
                   <img id="profile-img" src="images/user.png">
-                  <span class="text">[[${owner}]]</span>
+                  <span class="text">[[${sellerNick}]]</span>
               </div>
               <hr>
 
@@ -197,9 +212,46 @@
               <hr>
 
               <div id="seller-item">
-                  <span id="seller-nick">[[${owner}]]</span>
-                  <span class="text">님의 판매 상품</span>
-                  <a id="all-show" th:href="'/item/' +${item.id}+'/' + ${item.member.id}">모두보기</a>
+                  <div id="seller-title">
+                      <span id="seller-nick">[[${sellerNick}]]</span>
+                      <span class="text">님의 판매 상품</span>
+                      <a id="all-show" th:href="'/item/' +${item.id}+'/' + ${item.member.id}">모두보기</a>
+                  </div>
+
+                  <table>
+                      <tr th:if="${seller.size() > 0}">
+                          <td>
+                              <img th:src="${seller[0].imgUrl}" class="seller-img">
+                              <div class="seller-text">
+                                  <p class="text">[[${seller[0].title}]]</p>
+                                  <p class="text">[[${seller[0].price}]]원</p>
+                              </div>
+                          </td>
+                          <td th:if="${seller.size() > 1}">
+                              <img th:src="${seller[1].imgUrl}" class="seller-img">
+                              <div class="seller-text">
+                                  <p class="text">[[${seller[1].title}]]</p>
+                                  <p class="text">[[${seller[1].price}]]원</p>
+                              </div>
+                          </td>
+                      </tr>
+                      <tr th:if="${seller.size() > 2}">
+                          <td>
+                              <img th:src="${seller[2].imgUrl}" class="seller-img">
+                              <div class="seller-text">
+                                  <p class="text">[[${seller[2].title}]]</p>
+                                  <p class="text">[[${seller[2].price}]]원</p>
+                              </div>
+                          </td>
+                          <td th:if="${seller.size() > 3}">
+                              <img th:src="${seller[3].imgUrl}" class="seller-img">
+                              <div class="seller-text">
+                                  <p class="text">[[${seller[3].title}]]</p>
+                                  <p class="text">[[${seller[3].price}]]원</p>
+                              </div>
+                          </td>
+                      </tr>
+                  </table>
               </div>
             </div>
 
