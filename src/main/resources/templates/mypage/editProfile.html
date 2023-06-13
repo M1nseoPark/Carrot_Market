@@ -51,17 +51,24 @@
               #profile {
                 margin-top: 50px;
                 text-align: center;
+                border-radius: 70%;
+                overflow: hidden;
               }
 
-              #profile-img {
+              .profile-img {
                 width: 350px;
                 height: 350px;
+                object-fit: cover;
               }
 
               #profile-bt {
                 font-size: 40px;
                 background-color: rgba(0,0,0,0);
                 border: none;
+              }
+
+              #profile-file {
+                display: none;
               }
 
               .input {
@@ -88,7 +95,7 @@
       </head>
 
       <body>
-          <div layout:fragment="content">
+          <form th:action="@{/mypage/edit}" th:object="${form}" method="post" enctype="multipart/form-data">
               <div id="header">
                   <h2>나의 당근</h2>
                   <span id="menu" class="material-symbols-outlined">menu</span>
@@ -97,12 +104,15 @@
               <hr>
 
               <div id="profile">
-                  <img id="profile-img" src="images/user.png">
-                  <button id="profile-bt" class="material-symbols-outlined">add_a_photo</button>
+                  <img class="profile-img" th:if="${profileImage == null}" src="images/user.png">
+                  <img class="profile-img" th:unless="${profileImage == null}" src="{profileImage}">
+
+                  <label for="profile-file" id="profile-bt" class="material-symbols-outlined">add_a_photo</label>
+                  <input type="file" id="profile-file">
                   <input type="text" class="input" placeholder="닉네임">
               </div>
 
               <button id="finish-bt">완료</button>
-          </div>
+          </form>
       </body>
 </html>

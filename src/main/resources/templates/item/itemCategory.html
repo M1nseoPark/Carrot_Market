@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>채팅목록</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <style>
+            * {
+                margin: 0px;
+                padding: 0px;
+                text-decoration: none;
+                font-family:sans-serif;
+            }
+
+            #header {
+                padding-left: 30px;
+                padding-top: 30px;
+                padding-right: 30px;
+            }
+
+            #back {
+                font-size: 35px;
+                vertical-align: middle;
+                border: none;
+                background-color: rgba(0,0,0,0);
+            }
+
+            h2 {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 10px;
+            }
+
+            hr {
+                color: #A9A5A5;
+                width: 100%;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+
+            table {
+                width: 100%;
+                margin: 50px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="header">
+            <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
+            <h2>카테고리</h2>
+        </div>
+        <hr>
+
+        <table>
+            <tr>
+                <td>디지털기기</td>
+                <td>생활가전</td>
+                <td>가구/인테리어</td>
+            </tr>
+
+            <tr>
+                <td>유아동</td>
+                <td>생활/가공식품</td>
+                <td>유아도서</td>
+            </tr>
+
+            <tr>
+                <td>여성의류</td>
+                <td>남성패션/잡화</td>
+                <td>게임/취미</td>
+            </tr>
+
+            <tr>
+                <td>뷰티/미용</td>
+                <td>반려동물용품</td>
+                <td>도서/티켓/음반</td>
+            </tr>
+
+            <tr>
+                <td>식물</td>
+                <td>기타 중고용품</td>
+                <td>중고차</td>
+            </tr>
+        </table>
+    </body>
+</html>

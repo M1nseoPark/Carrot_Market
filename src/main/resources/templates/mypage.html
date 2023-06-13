@@ -53,6 +53,18 @@
               text-align: center;
             }
 
+            #profile-img {
+              width: 90px;
+              height: 90px;
+              vertical-align: middle;
+            }
+
+            #nickname {
+              font-size: 25px;
+              margin-left: 20px;
+              vertical-align: middle;
+            }
+
             .text {
               color: black;
               font-size: 25px;
@@ -61,6 +73,10 @@
             }
 
             #edit {
+              text-align: center;
+            }
+
+            #edit-bt {
               height: 40px;
               margin-top: 10px;
               width: 97%;
@@ -165,8 +181,12 @@
             <hr>
 
             <div id="profile">
-                <span class="text" th:text="${member.nick}"></span><br>
-                <button id="edit" onclick="location.href='/mypage/edit'">프로필 수정</button>
+                <img id="profile-img" src="images/user.png">
+<!--                <span id="nickname">홍길동</span><br>-->
+                <span id="nickname" th:text="${member.nick}"></span><br>
+            </div>
+            <div id="edit">
+                <button id="edit-bt" onclick="location.href='/mypage/edit'">프로필 수정</button>
             </div>
 
             <div id="menu-list">

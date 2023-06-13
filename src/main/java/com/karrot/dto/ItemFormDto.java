@@ -4,10 +4,13 @@ import com.karrot.constant.ItemSellStatus;
 import com.karrot.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,11 @@ public class ItemFormDto {
     @NotBlank(message = "본문은 필수 입력 값입니다")
     private String detail;
 
-//    private ItemSellStatus itemSellStatus;
+    private ItemSellStatus itemSellStatus;
+    
+    private LocalDateTime time;
+
+    private int like;
 
     // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();

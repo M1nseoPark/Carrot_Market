@@ -4,6 +4,8 @@ import com.karrot.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -48,9 +50,5 @@ public class Item {
 
     public void addLike() {
         this.like++;
-    }
-
-    public void deleteLike() {
-        this.like--;
     }
 }
