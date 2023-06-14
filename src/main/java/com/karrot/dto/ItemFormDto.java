@@ -32,7 +32,7 @@ public class ItemFormDto {
     @NotBlank(message = "본문은 필수 입력 값입니다")
     private String detail;
 
-    private ItemSellStatus itemSellStatus;
+    private ItemSellStatus status;
     
     private LocalDateTime time;
 

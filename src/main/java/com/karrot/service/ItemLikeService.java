@@ -24,6 +24,16 @@ public class ItemLikeService {
         return itemRepository.getLikeItemList(member.getId());
     }
 
+    @Transactional(readOnly = true)
+    public List<MainItemDto> getLikeItemSellList(Member member) {
+        return itemRepository.getLikeItemSellList(member.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MainItemDto> getLikeItemSoldList(Member member) {
+        return itemRepository.getLikeItemSoldList(member.getId());
+    }
+
     @Transactional
     public LikeItem addLike(LikeItem likeItem) {
         return itemLikeRepository.save(likeItem);

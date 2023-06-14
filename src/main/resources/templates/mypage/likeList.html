@@ -120,6 +120,18 @@
                 vertical-align: middle;
             }
 
+            #sold-bt {
+                font-size: 20px;
+                background-color: black;
+                border: none;
+                color: white;
+                width: 90px;
+                height: 40px;
+                border-radius: 7px;
+                float: right;
+                margin-right: 30px;
+            }
+
             #item-like {
                 float: right;
                 padding-right: 50px;
@@ -143,9 +155,9 @@
         <div class="menu">
             <nav class="clearfix">
                 <ul class="clearfix">
-                    <li><a href="http://www._____.com">전체</a></li> <!--""<-여기 부분에 URL 작성하면 됨-->
-                    <li><a href="http://www._____.com/About">판매중</a></li>
-                    <li><a href="http://www._____.com/Project">거래완료</a></li>
+                    <li><a href="http://localhost/mypage/like">전체</a></li> <!--""<-여기 부분에 URL 작성하면 됨-->
+                    <li><a href="http://localhost/mypage/like/sell">판매중</a></li>
+                    <li><a href="http://localhost/mypage/like/sold">거래완료</a></li>
                 </ul>
             </nav>
         </div>
@@ -160,6 +172,7 @@
                         <p class="item-text">[[${item.title}]]</p>
                         <p class="item-text">[[${item.price}]]원</p>
                     </div>
+                    <button th:if="${item.status == T(com.karrot.constant.ItemSellStatus).SOLD_OUT}" id="sold-bt">거래완료</button>
                     <div id="item-like" th:if="${item.like != 0}">
                         <span id="like-icon" class="material-symbols-outlined">favorite</span>
                         <span class="item-text">[[${item.like}]]</span>

@@ -1,9 +1,9 @@
 package com.karrot.repository;
 
+import com.karrot.constant.ItemSellStatus;
 import com.karrot.dto.ItemSearchDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.dto.QMainItemDto;
-import com.karrot.entity.Item;
 import com.karrot.entity.QItem;
 import com.karrot.entity.QItemImg;
 import com.karrot.entity.QLikeItem;
@@ -37,7 +37,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.detail,
                                 itemImg.imgUrl,
                                 item.price,
-                                item.like)
+                                item.like,
+                                item.status)
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
@@ -61,10 +62,67 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.detail,
                                 itemImg.imgUrl,
                                 item.price,
-                                item.like)
+                                item.like,
+                                item.status)
                 )
                 .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"), item.id.in(
+                        JPAExpressions
+                                .select(likeItem.item.id)
+                                .from(likeItem)
+                                .where(likeItem.member.id.eq(memberId))
+                ))
+                .fetch();
+    }
+
+    @Override
+    public List<MainItemDto> getLikeItemSellList(Long memberId) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+        QLikeItem likeItem = QLikeItem.likeItem;
+
+        return queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.title,
+                                item.detail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.like,
+                                item.status)
+                )
+                .from(itemImg)
+                .where(itemImg.repimgYn.eq("Y"), item.status.eq(ItemSellStatus.SELL), item.id.in(
+                        JPAExpressions
+                                .select(likeItem.item.id)
+                                .from(likeItem)
+                                .where(likeItem.member.id.eq(memberId))
+                ))
+                .fetch();
+    }
+
+    @Override
+    public List<MainItemDto> getLikeItemSoldList(Long memberId) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+        QLikeItem likeItem = QLikeItem.likeItem;
+
+        return queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.title,
+                                item.detail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.like,
+                                item.status)
+                )
+                .from(itemImg)
+                .where(itemImg.repimgYn.eq("Y"), item.status.eq(ItemSellStatus.SOLD_OUT), item.id.in(
                         JPAExpressions
                                 .select(likeItem.item.id)
                                 .from(likeItem)
@@ -87,7 +145,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.detail,
                                 itemImg.imgUrl,
                                 item.price,
-                                item.like)
+                                item.like,
+                                item.status)
                 )
                 .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId))

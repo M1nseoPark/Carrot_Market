@@ -39,11 +39,29 @@ public class MyPageController {
         return "mypage";
     }
 
-    // 관심목록 페이지 이동
+    // 관심목록 페이지 이동 (전체)
     @GetMapping(value = "/like")
     public String myLikePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Member member = memberService.findMember(userDetails.getUsername());
         List<MainItemDto> items = itemLikeService.getLikeItemList(member);
+        model.addAttribute("items", items);
+        return "mypage/likeList";
+    }
+
+    // 관심목록 페이지 이동 (판매중)
+    @GetMapping(value = "/like/sell")
+    public String myLikePageSell(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Member member = memberService.findMember(userDetails.getUsername());
+        List<MainItemDto> items = itemLikeService.getLikeItemSellList(member);
+        model.addAttribute("items", items);
+        return "mypage/likeList";
+    }
+
+    // 관심목록 페이지 이동 (거래완료)
+    @GetMapping(value = "/like/sold")
+    public String myLikePageSold(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Member member = memberService.findMember(userDetails.getUsername());
+        List<MainItemDto> items = itemLikeService.getLikeItemSoldList(member);
         model.addAttribute("items", items);
         return "mypage/likeList";
     }
