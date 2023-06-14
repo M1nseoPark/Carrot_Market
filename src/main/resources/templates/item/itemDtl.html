@@ -196,11 +196,11 @@
 
               <table>
                 <tr>
-                    <td th:if="${item.status == 'SOLD_OUT'}">
+                    <td th:if="${item.status == T(com.karrot.constant.ItemSellStatus).SOLD_OUT}">
                         <h3 class="text-2">거래완료</h3>
                         <h3 class="text">[[${item.title}]]</h3>
                     </td>
-                    <td th:unless="${item.status == 'SOLD_OUT'}">
+                    <td th:unless="${item.status == T(com.karrot.constant.ItemSellStatus).SOLD_OUT}">
                         <h3 class="text">[[${item.title}]]</h3>
                     </td>
                   <td class="text">[[${item.price}]]원</td>

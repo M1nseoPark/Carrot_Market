@@ -150,6 +150,28 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.status)
                 )
                 .from(itemImg)
+                .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId))
+                .fetch();
+    }
+
+    @Override
+    public List<MainItemDto> getSellerItemListSell(Long ownerId) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        return queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.title,
+                                item.detail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.like,
+                                item.status)
+                )
+                .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId),
                         item.status.eq(ItemSellStatus.SELL).or(item.status.eq(ItemSellStatus.RESERVE)))
                 .fetch();

@@ -68,9 +68,9 @@ public class MyPageController {
 
     // 판매내역 페이지 이동 (판매중)
     @GetMapping(value = "/sale")
-    public String mySalePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String mySalePageSell(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Member member = memberService.findMember(userDetails.getUsername());
-        List<MainItemDto> items = itemService.getSellerItemList(member.getId());
+        List<MainItemDto> items = itemService.getSellerItemListSell(member.getId());
         model.addAttribute("items", items);
         return "mypage/saleList";
     }

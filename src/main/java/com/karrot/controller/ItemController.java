@@ -77,10 +77,26 @@ public class ItemController {
         return "item/itemDtl";
     }
 
-    // 판매상품 보기 페이지
+    // 판매상품 보기 페이지 (전체)
     @GetMapping(value = "/item/{itemId}/{sellerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
     public String itemSeller(Model model, @PathVariable("sellerId") Long sellerId) {
         List<MainItemDto> sellerList = itemService.getSellerItemList(sellerId);
+        model.addAttribute("items", sellerList);
+        return "item/itemMember";
+    }
+
+    // 판매상품 보기 페이지 (판매중)
+    @GetMapping(value = "/item/{itemId}/{sellerId}/sell")
+    public String itemSellerSell(Model model, @PathVariable("sellerId") Long sellerId) {
+        List<MainItemDto> sellerList = itemService.getSellerItemListSell(sellerId);
+        model.addAttribute("items", sellerList);
+        return "item/itemMember";
+    }
+
+    // 판매상품 보기 페이지 (거래완료)
+    @GetMapping(value = "/item/{itemId}/{sellerId}/sold")
+    public String itemSellerSold(Model model, @PathVariable("sellerId") Long sellerId) {
+        List<MainItemDto> sellerList = itemService.getSellerItemListSold(sellerId);
         model.addAttribute("items", sellerList);
         return "item/itemMember";
     }

@@ -80,10 +80,16 @@ public class ItemService {
         return itemRepository.getMainItemList(itemSearchDto);
     }
 
-    // 판매상품 목록 페이지에 보여줄 상품 데이터 조회 (판매중)
+    // 판매상품 목록 페이지에 보여줄 상품 데이터 조회 (전체)
     @Transactional(readOnly = true)
     public List<MainItemDto> getSellerItemList(Long sellerId) {
         return itemRepository.getSellerItemList(sellerId);
+    }
+
+    // 판매상품 목록 페이지에 보여줄 상품 데이터 조회 (판매중)
+    @Transactional(readOnly = true)
+    public List<MainItemDto> getSellerItemListSell(Long sellerId) {
+        return itemRepository.getSellerItemListSell(sellerId);
     }
 
     // 판매상품 목록 페이지에 보여줄 상품 데이터 조회 (거래완료)

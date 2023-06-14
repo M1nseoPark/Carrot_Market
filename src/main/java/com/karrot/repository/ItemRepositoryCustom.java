@@ -20,8 +20,11 @@ public interface ItemRepositoryCustom {
     // 관심목록 페이지에 보여줄 상품 리스트 가져오기 (거래완료)
     List<MainItemDto> getLikeItemSoldList(Long memberId);
 
-    // 판매상품 페이지에 보여줄 상품 리스트 가져오기 (판매중)
+    // 판매상품 페이지에 보여줄 상품 리스트 가져오기 (전체)
     List<MainItemDto> getSellerItemList(Long ownerId);
+
+    // 판매상품 페이지에 보여줄 상품 리스트 가져오기 (판매중)
+    List<MainItemDto> getSellerItemListSell(Long ownerId);
 
     // 판매상품 페이지에 보여줄 상품 리스트 가져오기 (거래완료)
     List<MainItemDto> getSellerItemListSold(Long ownerId);
