@@ -1,6 +1,7 @@
 package com.karrot.controller;
 
 import com.karrot.constant.ItemSellStatus;
+import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.dto.MemberDto;
 import com.karrot.entity.Item;
@@ -13,8 +14,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -48,40 +53,74 @@ public class MyPageController {
         return "mypage/likeList";
     }
 
-    // 관심목록 페이지 이동 (판매중)
-    @GetMapping(value = "/like/sell")
-    public String myLikePageSell(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    // 관심목록 페이지 이동 (판매중, 거래완료)
+    @GetMapping(value = "/like/{status}")
+    public String myLikePageSell(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable("status") ItemSellStatus status) {
         Member member = memberService.findMember(userDetails.getUsername());
-        List<MainItemDto> items = itemLikeService.getLikeItemSellList(member);
-        model.addAttribute("items", items);
+
+        if (status == ItemSellStatus.SELL) {
+            List<MainItemDto> items = itemLikeService.getLikeItemSellList(member);
+            model.addAttribute("items", items);
+        }
+        else {
+            List<MainItemDto> items = itemLikeService.getLikeItemSoldList(member);
+            model.addAttribute("items", items);
+        }
+
         return "mypage/likeList";
     }
 
-    // 관심목록 페이지 이동 (거래완료)
-    @GetMapping(value = "/like/sold")
-    public String myLikePageSold(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    // 판매내역 페이지 이동
+    @GetMapping(value = "/sale/{status}")
+    public String mySalePage(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable("status") ItemSellStatus status) {
         Member member = memberService.findMember(userDetails.getUsername());
-        List<MainItemDto> items = itemLikeService.getLikeItemSoldList(member);
-        model.addAttribute("items", items);
-        return "mypage/likeList";
-    }
 
-    // 판매내역 페이지 이동 (판매중)
-    @GetMapping(value = "/sale")
-    public String mySalePageSell(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        Member member = memberService.findMember(userDetails.getUsername());
-        List<MainItemDto> items = itemService.getSellerItemListSell(member.getId());
-        model.addAttribute("items", items);
+        if (status == ItemSellStatus.SELL) {
+            List<MainItemDto> items = itemService.getSellerItemListSell(member.getId());
+            model.addAttribute("items", items);
+        }
+        else {
+            List<MainItemDto> items = itemService.getSellerItemListSold(member.getId());
+            model.addAttribute("items", items);
+        }
+
         return "mypage/saleList";
     }
 
-    // 판매내역 페이지 이동 (판매중)
-    @GetMapping(value = "/sale/sold")
-    public String mySalePageSold(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        Member member = memberService.findMember(userDetails.getUsername());
-        List<MainItemDto> items = itemService.getSellerItemListSold(member.getId());
-        model.addAttribute("items", items);
-        return "mypage/saleList";
+    // 판매내역 페이지에서 상품 수정
+    @GetMapping(value = "/sale/edit/{itemId}")
+    public String mySalePageEdit(@PathVariable("itemId") Long itemId, Model model) {
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
+
+        model.addAttribute("item", itemFormDto);
+        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
+        return "mypage/saleEdit";
+    }
+
+    // 판매내역 페이지에서 상품 수정 (게시글 수정)
+    @GetMapping(value = "/sale/edit/{itemId}/edit")
+    public String mySalePageEditEdit(@PathVariable("itemId") Long itemId, Model model) {
+        try {
+            ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+            model.addAttribute("itemFormDto", itemFormDto);
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
+            model.addAttribute("itemFormDto", new ItemFormDto());
+            return "item/itemForm";
+        }
+        return "item/itemForm";
+    }
+
+    // 판매내역 페이지에서 상품 수정 (게시글 삭제)
+    @GetMapping(value = "/sale/edit/{itemId}/delete")
+    public String mySalePageEditDelete(@PathVariable("itemId") Long itemId, Model model) {
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
+
+        model.addAttribute("item", itemFormDto);
+        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
+        return "mypage/saleEdit";
     }
 
     // 판매내역 페이지에서 판매상태 변경

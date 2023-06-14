@@ -50,6 +50,30 @@
                 float: right;
               }
 
+              #menu:hover > ul {
+                display:block;
+              }
+
+              li {
+                list-style: none;
+                font-size: 18px;
+                margin: 15px;
+              }
+
+              .edit {
+                text-decoration: none;
+                color: #000000;
+              }
+
+              #edit-menu {
+                float: right;
+                width: 150px;
+                position: absolute;
+                background-color: white;
+                text-align: center;
+<!--                display: none;-->
+              }
+
               #profile-img {
                 width: 50px;
                 height: 50px;
@@ -84,6 +108,7 @@
                 width: 100%;
                 margin-left: 40px;
                 margin-right: 40px;
+                margin-bottom: 50px;
               }
 
               tr {
@@ -178,6 +203,7 @@
                 color:white;
                 font-size: 17px;
                 border:none;
+                border-radius: 7px;
               }
           </style>
       </head>
@@ -188,6 +214,10 @@
                   <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
                   <a id="home" class="material-symbols-outlined" href="/">home</a>
                   <span id="menu" class="material-symbols-outlined">more_vert</span>
+                  <ul id="edit-menu">
+                      <li><a class="edit" href="#">게시글 수정</a></li>
+                      <li><a class="edit" href="#">삭제</a></li>
+                  </ul>
               </div>
 
               <input type="hidden" id="itemId" th:value="${item.id}">

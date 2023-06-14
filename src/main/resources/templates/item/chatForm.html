@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>이 상품 관련 채팅 목록</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+            * {
+                  margin: 0px;
+                  padding: 0px;
+                  text-decoration: none;
+                  font-family:sans-serif;
+              }
+
+              #header {
+                  padding-left: 30px;
+                  padding-top: 30px;
+                  padding-right: 30px;
+              }
+
+              #back {
+                  font-size: 35px;
+                  vertical-align: middle;
+                  border: none;
+                  background-color: rgba(0,0,0,0);
+              }
+
+              h2 {
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-left: 10px;
+              }
+
+              hr {
+                  color: #A9A5A5;
+                  width: 100%;
+                  margin-top: 20px;
+                  margin-bottom: 10px;
+              }
+
+              .chat-img {
+                  width: 60px;
+                  height: 60px;
+                  margin-left: 20px;
+                  margin-top: 10px;
+              }
+
+              #chat-info {
+                  margin-left: 10px;
+                  margin-top: 20px;
+                  display: inline-block;
+                  vertical-align: top;
+              }
+
+              #chat-text {
+                  font-size: 20px;
+              }
+          </style>
+</head>
+
+<body>
+<div id="header">
+    <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
+    <h2>닉네임</h2>
+</div>
+<hr>
+
+<div>
+    <img class="chat-img" src="img/user.png">
+    <div id="chat-info">
+        <p class="chat-text">판매중</p>
+        <p class="chat-text">가격</p>
+    </div>
+</div>
+<hr>
+</body>
+</html>

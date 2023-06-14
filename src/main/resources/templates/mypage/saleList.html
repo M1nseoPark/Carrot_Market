@@ -150,8 +150,8 @@
         <div class="menu">
             <nav class="clearfix">
                 <ul class="clearfix">
-                    <li><a href="http://localhost/mypage/sale">판매중</a></li>
-                    <li><a href="http://localhost/mypage/sale/sold">거래완료</a></li>
+                    <li><a href="http://localhost/mypage/sale/SELL">판매중</a></li>
+                    <li><a href="http://localhost/mypage/sale/SOLD_OUT">거래완료</a></li>
                 </ul>
             </nav>
         </div>
@@ -160,22 +160,24 @@
         <div class="row">
             <th:block th:each="item : ${items}">
                 <div>
-                    <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
-                    <div id="item-info">
-                        <p class="item-text">[[${item.title}]]</p>
-                        <p class="item-text">[[${item.price}]]원</p>
-                    </div>
-                    <div id="item-like" th:if="${item.like != 0}">
-                        <span id="like-icon" class="material-symbols-outlined">favorite</span>
-                        <span class="item-text">[[${item.like}]]</span>
-                    </div>
-                    <table>
-                        <tr>
-                            <td><a class="status-bt" th:href="'sale/'+${item.id}+'/RESERVE'">예약중으로 변경</a></td>
-                            <td><a class="status-bt" th:href="'sale/'+${item.id}+'/SOLD_OUT'">거래완료로 변경</a></td>
-                        </tr>
-                    </table>
+                    <a th:href="'mypage/sale/edit/' +${item.id}">
+                        <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                        <div id="item-info">
+                            <p class="item-text">[[${item.title}]]</p>
+                            <p class="item-text">[[${item.price}]]원</p>
+                        </div>
+                        <div id="item-like" th:if="${item.like != 0}">
+                            <span id="like-icon" class="material-symbols-outlined">favorite</span>
+                            <span class="item-text">[[${item.like}]]</span>
+                        </div>
+                    </a>
                 </div>
+                <table>
+                    <tr>
+                        <td><a class="status-bt" th:href="'sale/'+${item.id}+'/RESERVE'">예약중으로 변경</a></td>
+                        <td><a class="status-bt" th:href="'sale/'+${item.id}+'/SOLD_OUT'">거래완료로 변경</a></td>
+                    </tr>
+                </table>
             </th:block>
         </div>
     </body>
