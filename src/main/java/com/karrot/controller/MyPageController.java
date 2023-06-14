@@ -66,11 +66,20 @@ public class MyPageController {
         return "mypage/likeList";
     }
 
-    // 판매내역 페이지 이동
+    // 판매내역 페이지 이동 (판매중)
     @GetMapping(value = "/sale")
     public String mySalePage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         Member member = memberService.findMember(userDetails.getUsername());
         List<MainItemDto> items = itemService.getSellerItemList(member.getId());
+        model.addAttribute("items", items);
+        return "mypage/saleList";
+    }
+
+    // 판매내역 페이지 이동 (판매중)
+    @GetMapping(value = "/sale/sold")
+    public String mySalePageSold(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        Member member = memberService.findMember(userDetails.getUsername());
+        List<MainItemDto> items = itemService.getSellerItemListSold(member.getId());
         model.addAttribute("items", items);
         return "mypage/saleList";
     }

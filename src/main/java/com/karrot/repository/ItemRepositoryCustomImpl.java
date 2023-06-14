@@ -94,7 +94,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.status)
                 )
                 .from(itemImg)
-                .where(itemImg.repimgYn.eq("Y"), item.status.eq(ItemSellStatus.SELL), item.id.in(
+                .where(itemImg.repimgYn.eq("Y"),
+                        item.status.eq(ItemSellStatus.SELL).or(item.status.eq(ItemSellStatus.RESERVE)), item.id.in(
                         JPAExpressions
                                 .select(likeItem.item.id)
                                 .from(likeItem)
@@ -149,7 +150,30 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 item.status)
                 )
                 .from(itemImg)
-                .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId))
+                .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId),
+                        item.status.eq(ItemSellStatus.SELL).or(item.status.eq(ItemSellStatus.RESERVE)))
+                .fetch();
+    }
+
+    @Override
+    public List<MainItemDto> getSellerItemListSold(Long ownerId) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        return queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.title,
+                                item.detail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.like,
+                                item.status)
+                )
+                .from(itemImg)
+                .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId), item.status.eq(ItemSellStatus.SOLD_OUT))
                 .fetch();
     }
 }
