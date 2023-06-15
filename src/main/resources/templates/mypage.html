@@ -181,8 +181,8 @@
             <hr>
 
             <div id="profile">
-                <img class="profile-img" th:if="${member.imgUrl == null}" src="img/user.png">
-                <img class="profile-img" th:unless="${member.imgUrl == null}" th:src="${profile}">
+                <img class="profile-img" th:if="${profile == null}" src="img/user.png">
+                <img class="profile-img" th:unless="${profile == null}" th:src="${profile.getImgUrl()}">
                 <span id="nickname" th:text="${member.nick}"></span><br>
             </div>
             <div id="edit">

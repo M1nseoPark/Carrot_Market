@@ -44,7 +44,7 @@ public class MyPageController {
                 .build();
 
         model.addAttribute("member", memberDto);
-        model.addAttribute("profile", member.getMemberImg().getImgUrl());
+        model.addAttribute("profile", member.getMemberImg());
         return "mypage";
     }
 
@@ -99,6 +99,7 @@ public class MyPageController {
 
         model.addAttribute("item", itemFormDto);
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
+        model.addAttribute("sellerImg", itemFormDto.getMember().getMemberImg());
         return "mypage/saleEdit";
     }
 
@@ -153,6 +154,7 @@ public class MyPageController {
                         .nick(member.getNick()).build();
 
         model.addAttribute("memberUpdateDto", memberUpdateDto);
+        model.addAttribute("profile", member.getMemberImg());
         return "mypage/editProfile";
     }
 
