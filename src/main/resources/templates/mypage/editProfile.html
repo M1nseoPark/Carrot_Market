@@ -51,11 +51,15 @@
               #profile {
                 margin-top: 50px;
                 text-align: center;
-                border-radius: 70%;
-                overflow: hidden;
               }
 
-              .profile-img {
+              #profile-img {
+                width: 350px;
+                height: 350px;
+                object-fit: cover;
+              }
+
+              #profile-img-2 {
                 width: 350px;
                 height: 350px;
                 object-fit: cover;
@@ -67,11 +71,11 @@
                 border: none;
               }
 
-              #profile-file {
-                display: none;
-              }
+<!--              #profile-file {-->
+<!--                display: none;-->
+<!--              }-->
 
-              .input {
+              #profile-nick {
                 margin-top: 20px;
                 width: 95%;
                 height: 45px;
@@ -83,7 +87,7 @@
               #finish-bt {
                 width: 100%;
                 height:50px;
-                background-color: #BEBABA;
+                background-color: #FF931E;
                 color:white;
                 font-size: 25px;
                 font-weight: bold;
@@ -95,24 +99,28 @@
       </head>
 
       <body>
-          <form th:action="@{/mypage/edit}" th:object="${form}" method="post" enctype="multipart/form-data">
-              <div id="header">
-                  <h2>나의 당근</h2>
-                  <span id="menu" class="material-symbols-outlined">menu</span>
-                  <span id="search" class="material-symbols-outlined">search</span>
-              </div>
-              <hr>
+          <div id="header">
+              <h2>나의 당근</h2>
+              <span id="menu" class="material-symbols-outlined">menu</span>
+              <span id="search" class="material-symbols-outlined">search</span>
+          </div>
+          <hr>
 
+          <form role="form" method="post" enctype="multipart/form-data" th:object="${memberUpdateDto}">
               <div id="profile">
-                  <img class="profile-img" th:if="${profileImage == null}" src="img/user.png">
-                  <img class="profile-img" th:unless="${profileImage == null}" src="{profileImage}">
-
+                  <img id="profile-img" src="/img/user.png" th:if="${profileImage == null}">
+                  <img id="profile-img-2" src="{profileImage}" th:unless="${profileImage == null}">
                   <label for="profile-file" id="profile-bt" class="material-symbols-outlined">add_a_photo</label>
-                  <input type="file" id="profile-file">
-                  <input type="text" class="input" placeholder="닉네임">
+                  <input type="file" id="profile-file" name="memberImgFile" onchange="readURL(this);">
+
+                  <input type="text" id="profile-nick" th:field="*{nick}" placeholder="닉네임">
               </div>
 
-              <button id="finish-bt">완료</button>
+              <button id="finish-bt" type="submit" th:formaction="@{/mypage/edit}">완료</button>
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
           </form>
+
+          <script src="http://code.jquery.com/jquery-latest.js"></script>
+          <script src="/js/editProfile.js"></script>
       </body>
 </html>

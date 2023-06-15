@@ -1,5 +1,6 @@
 package com.karrot.dto;
 
+import com.karrot.entity.MemberImg;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,12 +13,14 @@ public class MemberDto {
 
     private String nick;
 
-//    private String imgUrl;
+    private MemberImg imgUrl;
+
+    private Long memberImgId;
 
     @Builder
-    public MemberDto(Long id, String nick) {
+    public MemberDto(Long id, String nick, MemberImg imgUrl) {
         this.id = id;
         this.nick = nick;
-//        this.imgUrl = imgUrl;
+        this.imgUrl = imgUrl;
     }
 }

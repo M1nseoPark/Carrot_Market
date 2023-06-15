@@ -77,6 +77,7 @@ public class ItemController {
         return "item/itemDtl";
     }
 
+    // 상품 수정하기
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
                                      @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {

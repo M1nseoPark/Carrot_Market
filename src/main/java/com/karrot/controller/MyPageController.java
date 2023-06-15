@@ -4,11 +4,11 @@ import com.karrot.constant.ItemSellStatus;
 import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.dto.MemberDto;
+import com.karrot.dto.MemberUpdateDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.Member;
-import com.karrot.service.ItemLikeService;
-import com.karrot.service.ItemService;
-import com.karrot.service.MemberService;
+import com.karrot.entity.MemberImg;
+import com.karrot.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,6 +39,7 @@ public class MyPageController {
         MemberDto memberDto = MemberDto.builder()
                 .id(member.getId())
                 .nick(member.getNick())
+                .imgUrl(member.getMemberImg())
                 .build();
 
         model.addAttribute("member", memberDto);
@@ -140,21 +142,42 @@ public class MyPageController {
 
     // 프로필 수정 페이지 이동
     @GetMapping(value = "/edit")
-    public String editPage() {
-        return "mypage/editProfile";
-    }
+    public String editPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 
-    @PostMapping(value = "/edit")
-    public String editProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String email = userDetails.getUsername();
         Member member = memberService.findMember(email);
 
-//        try {
-//            memberService.saveItem(member);
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", "프로필 수정 중 에러가 발생하였습니다.");
+        MemberUpdateDto memberUpdateDto = MemberUpdateDto.builder()
+                        .nick(member.getNick()).build();
+
+        model.addAttribute("memberUpdateDto", memberUpdateDto);
+        return "mypage/editProfile";
+    }
+
+    // 프로필 수정
+    @PostMapping(value = "/edit")
+    public String editProfile(@AuthenticationPrincipal UserDetails userDetails,
+                              @ModelAttribute MemberUpdateDto memberUpdateDto) throws IOException {
+
+        String email = userDetails.getUsername();
+        Member member = memberService.findMember(email);
+
+//        if (!memberUpdateDto.getMemberImg().isEmpty()) {
+//            memberService.updateMember(memberDto, memberImg);
+//        }
+//
+//        if(bindingResult.hasErrors()) {
 //            return "mypage/editProfile";
 //        }
+//
+//        try {
+//
+//        } catch (Exception e) {
+//            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다");
+//            return "mypage/editProfile";
+//        }
+
+        memberService.updateNick(member, memberUpdateDto.getNick());
 
         return "redirect:/mypage";
     }

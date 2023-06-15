@@ -5,8 +5,6 @@ import com.karrot.entity.Item;
 import com.karrot.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;

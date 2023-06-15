@@ -1,6 +1,7 @@
 package com.karrot.entity;
 
 import com.karrot.dto.MemberFormDto;
+import com.karrot.dto.MemberUpdateDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -47,9 +48,8 @@ public class Member {
         return member;
     }
 
-    // 회원의 닉네임 수정
-    public Member updateMemberNick(String nick) {
-        this.nick = nick;
+    public Member updateNick(String newNick) {
+        this.nick = newNick;
         return this;
     }
 }

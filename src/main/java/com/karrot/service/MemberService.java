@@ -1,9 +1,7 @@
 package com.karrot.service;
 
-import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.MemberDto;
-import com.karrot.entity.Item;
-import com.karrot.entity.ItemImg;
+import com.karrot.dto.MemberUpdateDto;
 import com.karrot.entity.Member;
 import com.karrot.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -23,6 +21,7 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final MemberImgService memberImgService;
 
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
@@ -59,4 +58,21 @@ public class MemberService implements UserDetailsService {
                 .roles("ADMIN")
                 .build();
     }
+
+    @Transactional
+    public Member updateNick(Member member, String newNick) {
+        return member.updateNick(newNick);
+    }
+
+//    public Long updateMember(MemberUpdateDto memberUpdateDto, MultipartFile memberImgFile) throws Exception {
+//        Member member = memberRepository.findById(memberUpdateDto.getId()).orElseThrow(EntityNotFoundException::new);
+//        member.updateMember(memberUpdateDto);
+//
+//        Long memberImgId = memberUpdateDto.getMemberImgId();
+//
+//        // 이미지 등록
+//        memberImgService.updateMemberImg(memberImgId, memberImgFile);
+//
+//        return member.getId();
+//    }
 }
