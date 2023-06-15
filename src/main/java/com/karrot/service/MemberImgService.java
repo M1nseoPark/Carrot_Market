@@ -1,5 +1,6 @@
 package com.karrot.service;
 
+import com.karrot.entity.Member;
 import com.karrot.entity.MemberImg;
 import com.karrot.repository.MemberImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,18 +25,24 @@ public class MemberImgService {
     private final MemberImgRepository memberImgRepository;
 
     @Transactional
-    public MemberImg saveMemberImg(MemberImg memberImg) {
-        return memberImgRepository.save(memberImg);
-    }
+    public void updateMemberImg(Member member, MemberImg memberImg, MultipartFile memberImgFile) throws Exception {
+        if(memberImg == null) {
+            MemberImg newMemberImg = new MemberImg();
+            String oriImgName = memberImgFile.getOriginalFilename();
+            String imgName = "";
+            String imgUrl = "";
 
-    public MemberImg findMemberImg(Long memberId) {
-        return memberImgRepository.findByMemberId(memberId);
-    }
+            if (!StringUtils.isEmpty(oriImgName)) {
+                imgName = fileService.uploadFile(memberImgLocation, oriImgName, memberImgFile.getBytes());
+                imgUrl = "/images/members/" + imgName;
+            }
 
-    @Transactional
-    public void updateMemberImg(Long memberImgId, MultipartFile memberImgFile) throws Exception {
-        if(!memberImgFile.isEmpty()) {
-            MemberImg savedMemberImg = memberImgRepository.findById(memberImgId).orElseThrow(EntityNotFoundException::new);
+            newMemberImg.updateMemberImg(oriImgName, imgName, imgUrl);
+            member.setMemberImg(newMemberImg);
+            memberImgRepository.save(newMemberImg);
+        }
+        else {
+            MemberImg savedMemberImg = memberImgRepository.findById(memberImg.getId()).orElseThrow(EntityNotFoundException::new);
 
             // 기존 이미지 파일 삭제
             if(!StringUtils.isEmpty(savedMemberImg.getImgName())) {
@@ -46,6 +53,7 @@ public class MemberImgService {
 
             String imgName = fileService.uploadFile(memberImgLocation, oriImgName, memberImgFile.getBytes());
             String imgUrl = "/images/members/" + imgName;
+            member.setMemberImg(memberImg);
             savedMemberImg.updateMemberImg(oriImgName, imgName, imgUrl);
         }
     }

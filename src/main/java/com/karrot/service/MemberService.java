@@ -1,7 +1,5 @@
 package com.karrot.service;
 
-import com.karrot.dto.MemberDto;
-import com.karrot.dto.MemberUpdateDto;
 import com.karrot.entity.Member;
 import com.karrot.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -21,7 +16,6 @@ import javax.persistence.EntityNotFoundException;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private final MemberImgService memberImgService;
 
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
@@ -61,18 +55,11 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public Member updateNick(Member member, String newNick) {
+        Member findNick = memberRepository.findByNick(newNick);
+        if (findNick != null && member.getNick() != newNick) {
+            throw new IllegalStateException("이미 사용중인 닉네임입니다.");
+        }
+
         return member.updateNick(newNick);
     }
-
-//    public Long updateMember(MemberUpdateDto memberUpdateDto, MultipartFile memberImgFile) throws Exception {
-//        Member member = memberRepository.findById(memberUpdateDto.getId()).orElseThrow(EntityNotFoundException::new);
-//        member.updateMember(memberUpdateDto);
-//
-//        Long memberImgId = memberUpdateDto.getMemberImgId();
-//
-//        // 이미지 등록
-//        memberImgService.updateMemberImg(memberImgId, memberImgFile);
-//
-//        return member.getId();
-//    }
 }

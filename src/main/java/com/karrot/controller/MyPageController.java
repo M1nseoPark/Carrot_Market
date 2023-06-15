@@ -31,6 +31,7 @@ public class MyPageController {
     private final MemberService memberService;
     private final ItemService itemService;
     private final ItemLikeService itemLikeService;
+    private final MemberImgService memberImgService;
 
     @GetMapping
     public String myPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -43,6 +44,7 @@ public class MyPageController {
                 .build();
 
         model.addAttribute("member", memberDto);
+        model.addAttribute("profile", member.getMemberImg().getImgUrl());
         return "mypage";
     }
 
@@ -156,28 +158,22 @@ public class MyPageController {
 
     // 프로필 수정
     @PostMapping(value = "/edit")
-    public String editProfile(@AuthenticationPrincipal UserDetails userDetails,
-                              @ModelAttribute MemberUpdateDto memberUpdateDto) throws IOException {
+    public String editProfile(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute MemberUpdateDto memberUpdateDto,
+                              Model model) throws Exception {
 
         String email = userDetails.getUsername();
         Member member = memberService.findMember(email);
 
-//        if (!memberUpdateDto.getMemberImg().isEmpty()) {
-//            memberService.updateMember(memberDto, memberImg);
-//        }
-//
-//        if(bindingResult.hasErrors()) {
-//            return "mypage/editProfile";
-//        }
-//
-//        try {
-//
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다");
-//            return "mypage/editProfile";
-//        }
+        if (!memberUpdateDto.getMemberImg().isEmpty()) {
+            memberImgService.updateMemberImg(member, member.getMemberImg(), memberUpdateDto.getMemberImg());
+        }
 
-        memberService.updateNick(member, memberUpdateDto.getNick());
+        try {
+            memberService.updateNick(member, memberUpdateDto.getNick());
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "mypage/edit";
+        }
 
         return "redirect:/mypage";
     }
