@@ -126,12 +126,15 @@ public class MyPageController {
     // 판매내역 페이지에서 판매상태 변경
     @GetMapping(value = "/sale/{itemId}/{status}")
     @ResponseBody
-    public String mySaleStatus(@PathVariable("itemId") Long itemId, @PathVariable("status") ItemSellStatus status) {
-        try {
-            Item item = itemService.findItem(itemId);
-            itemService.changeItemStatus(item, status);
-        } catch (Exception e) {
-        }
+    public String mySaleStatus(@PathVariable("itemId") Long itemId, @PathVariable("status") ItemSellStatus status, Model model) {
+        Item item = itemService.findItem(itemId);
+        itemService.changeItemStatus(item, status);
+
+        if (status == ItemSellStatus.RESERVE)
+            model.addAttribute("message", "예약중으로 변경하였습니다");
+        else
+            model.addAttribute("message", "거래완료로 변경하였습니다");
+
         return "success";
     }
 

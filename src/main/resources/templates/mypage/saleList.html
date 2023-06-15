@@ -113,6 +113,7 @@
                 float: right;
                 padding-right: 50px;
                 vertical-align: middle;
+                margin-top: 210px;
             }
 
             #like-icon {
@@ -160,7 +161,7 @@
         <div class="row">
             <th:block th:each="item : ${items}">
                 <div>
-                    <a th:href="'mypage/sale/edit/' +${item.id}">
+                    <a th:href="@{http://localhost/mypage/sale/edit/{itemId}(itemId=${item.id})}">
                         <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
                         <div id="item-info">
                             <p class="item-text">[[${item.title}]]</p>
@@ -174,11 +175,23 @@
                 </div>
                 <table>
                     <tr>
-                        <td><a class="status-bt" th:href="'sale/'+${item.id}+'/RESERVE'">예약중으로 변경</a></td>
-                        <td><a class="status-bt" th:href="'sale/'+${item.id}+'/SOLD_OUT'">거래완료로 변경</a></td>
+                        <td><a class="status-bt" th:href="@{http://localhost/mypage/sale/{itemId}/RESERVE(itemId=${item.id})}">예약중으로 변경</a></td>
+                        <td><a class="status-bt" th:href="@{http://localhost/mypage/sale/{itemId}/SOLD_OUT(itemId=${item.id})}">거래완료로 변경</a></td>
                     </tr>
                 </table>
             </th:block>
         </div>
+
+        <th:block layout:fragment="script">
+            <script src="http://code.jquery.com/jquery-latest.js"></script>
+            <script th:inline="javascript">
+                $(document).ready(function(){
+                    var message = [[${message}]];
+                    if(message != null){
+                        alert(message);
+                    }
+                });
+            </script>
+        </th:block>
     </body>
 </html>
