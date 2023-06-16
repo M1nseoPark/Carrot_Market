@@ -85,29 +85,6 @@ public class ItemController {
         return "item/itemDtl";
     }
 
-    // 상품 수정하기
-    @PostMapping(value = "/admin/item/{itemId}")
-    public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
-                                     @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
-        if(bindingResult.hasErrors()) {
-            return "item/itemForm";
-        }
-
-        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
-            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
-            return "item/itemForm";
-        }
-
-        try {
-            itemService.updateItem(itemFormDto, itemImgFileList);
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다");
-            return "item/itemForm";
-        }
-
-        return "mypage/saleEdit";
-    }
-
     // 판매상품 보기 페이지 (전체)
     @GetMapping(value = "/item/{itemId}/{sellerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
     public String itemSeller(Model model, @PathVariable("sellerId") Long sellerId, @PathVariable("itemId") Long itemId) {

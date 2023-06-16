@@ -119,6 +119,24 @@ public class MyPageController {
         return "item/itemForm";
     }
 
+    // 게시글 수정하기
+    @PostMapping(value = "/sale/edit/{itemId}/edit")
+    public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
+                             @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
+        if(bindingResult.hasErrors()) {
+            return "item/itemForm";
+        }
+
+        try {
+            itemService.updateItem(itemFormDto, itemImgFileList);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다");
+            return "item/itemForm";
+        }
+
+        return "redirect:/mypage/sale/edit/{itemId}";
+    }
+
     // 판매내역 페이지에서 상품 수정 (게시글 삭제)
     @GetMapping(value = "/sale/edit/{itemId}/delete")
     public String mySalePageEditDelete(@PathVariable("itemId") Long itemId) {
