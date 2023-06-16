@@ -134,14 +134,19 @@
             }
 
             #item-like {
-                float: right;
+                margin-top: 170px;
             }
 
             #like-icon {
-                display: inline-block;
                 font-size: 30px;
                 color: black;
                 vertical-align: middle;
+            }
+
+            #item-cnt {
+                display: inline-block;
+                float: right;
+                margin-right: 30px;
             }
         </style>
     </head>
@@ -173,11 +178,19 @@
                         <p class="item-text">[[${item.title}]]</p>
                         <p class="item-text">[[${item.price}]]원</p>
                     </div>
-                    <button th:if="${item.status == T(com.karrot.constant.ItemSellStatus).SOLD_OUT}" id="sold-bt">거래완료</button>
-                    <div id="item-like" th:if="${item.like != 0}">
-                        <p id="like-icon" class="material-symbols-outlined">favorite</p>
-                        <p class="item-text">[[${item.like}]]</p>
-                    </div>
+                    <table id="item-cnt">
+                        <tr>
+                            <td><button th:if="${item.status == T(com.karrot.constant.ItemSellStatus).SOLD_OUT}" id="sold-bt">거래완료</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="item-like" th:if="${item.like != 0}">
+                                    <span id="like-icon" class="material-symbols-outlined">favorite</span>
+                                    <span class="item-text">[[${item.like}]]</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                     <hr>
                 </div>
             </th:block>
