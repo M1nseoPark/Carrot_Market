@@ -20,6 +20,7 @@
                 padding-top: 30px;
                 padding-right: 30px;
                 padding-bottom: 20px;
+                background-color: #ffffff;
             }
 
             h2 {
@@ -55,7 +56,7 @@
                 padding-top: 10px;
             }
 
-            #item-image {
+            .item-image {
                 width: 250px;
                 height: 250px;
                 margin-left: 40px;
@@ -96,10 +97,11 @@
 
             #footer {
                 text-align: center;
-                margin-bottom: 10px;
+                padding-bottom: 10px;
                 position: fixed;
                 bottom: 0;
                 width: 100%;
+                background-color: #ffffff;
             }
 
             #home {
@@ -144,7 +146,8 @@
                     <div class="col-md-4 margin">
                         <div class="card">
                             <a th:href="'/item/' +${item.id}">
-                                <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                                <img class="item-image" th:if="${item.imgUrl == ''}" src="/img/carrot_default.jpg">
+                                <img class="item-image" th:unless="${item.imgUrl == ''}" th:src="${item.imgUrl}">
                                 <div id="item-info">
                                     <p class="item-text">[[${item.title}]]</p>
                                     <p class="item-text">[[${item.price}]]원</p>

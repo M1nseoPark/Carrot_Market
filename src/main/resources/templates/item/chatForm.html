@@ -58,23 +58,60 @@
               #chat-text {
                   font-size: 20px;
               }
+
+              #chat-msg {
+                  margin-left: 20px;
+                  margin-right: 20px;
+                  height: 40px;
+                  padding-left: 10px;
+                  background-color: #CDC5C5;
+              }
+
+              #add-bt {
+                  font-size: 35px;
+                  vertical-align: middle;
+              }
+
+              #send-bt {
+                  font-size: 35px;
+                  vertical-align: middle;
+                  border: none;
+                  background-color: rgba(0,0,0,0);
+              }
+
+              #msg {
+                  width: 1450px;
+                  font-size: 20px;
+                  vertical-align: middle;
+                  background-color: #CDC5C5;
+                  border: none;
+              }
           </style>
-</head>
+    </head>
 
-<body>
-<div id="header">
-    <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
-    <h2>닉네임</h2>
-</div>
-<hr>
+    <body>
+        <div id="header">
+            <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
+            <h2>닉네임</h2>
+        </div>
+        <hr>
 
-<div>
-    <img class="chat-img" src="img/user.png">
-    <div id="chat-info">
-        <p class="chat-text">판매중</p>
-        <p class="chat-text">가격</p>
-    </div>
-</div>
-<hr>
-</body>
+        <div>
+            <img class="chat-img" src="img/user.png">
+            <div id="chat-info">
+                <p class="chat-text">판매중</p>
+                <p class="chat-text">가격</p>
+            </div>
+            <hr>
+
+            <div id="chat-area"></div>
+
+            <div id="chat-msg">
+                <span id="add-bt" class="material-symbols-outlined">add</span>
+                <input type="text" id="msg" placeholder="메시지 보내기">
+                <button id="send-bt" class="material-symbols-outlined">send</button>
+            </div>
+        </div>
+
+    </body>
 </html>

@@ -8,6 +8,8 @@ import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="member")
@@ -36,6 +38,9 @@ public class Member {
 
     @Column(unique = true)
     private String nick;
+
+    @OneToMany
+    private List<LikeItem> likeItem = new ArrayList<>();
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();

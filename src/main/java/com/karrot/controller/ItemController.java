@@ -2,6 +2,7 @@ package com.karrot.controller;
 
 import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.MainItemDto;
+import com.karrot.dto.MemberDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.LikeItem;
 import com.karrot.entity.Member;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -45,11 +47,6 @@ public class ItemController {
             return "item/itemForm";
         }
 
-        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
-            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
-            return "item/itemForm";
-        }
-
         // 상품 저장 로직 호출 -> 매개변수로 상품 정보와 상품 이미지 정보를 담고 있는 itemImgFileList를 넘겨줌
         try {
             Member member = memberService.findMember(userDetails.getUsername());
@@ -66,14 +63,24 @@ public class ItemController {
 
     // 상품 상세정보 보기
     @GetMapping(value = "/item/{itemId}")
-    public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
+    public String itemDtl(Model model, @PathVariable("itemId") Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        Member member = memberService.findMember(userDetails.getUsername());
         List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
+        System.out.println(member.getLikeItem().toString());
+
+        if (member.getLikeItem().contains(itemId)) {
+            model.addAttribute("like", "true");
+        }
+        else {
+            model.addAttribute("like", "false");
+        }
 
         model.addAttribute("item", itemFormDto);
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
         model.addAttribute("seller", sellerList);
         model.addAttribute("sellerImg", itemFormDto.getMember().getMemberImg());
+
 
         return "item/itemDtl";
     }
@@ -138,7 +145,7 @@ public class ItemController {
         Member member = memberService.findMember(userDetails.getUsername());
         Item item = itemService.findItem(itemId);
 
-        itemLikeService.addLike(new LikeItem(member, item));
+        itemLikeService.addLike(new LikeItem(member, item, itemId));
 
         itemService.addLike(item);
 

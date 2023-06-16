@@ -90,7 +90,7 @@
                 vertical-align: middle;
               }
 
-              #item-img {
+              .item-img {
                 margin-left: 40px;
                 height: 500px;
               }
@@ -235,8 +235,8 @@
               <input type="hidden" id="itemId" th:value="${item.id}">
 
               <div class="d-flex">
-                  <div class="repImgDiv">
-                  <img th:src="${item.itemImgDtoList[0].imgUrl}" id="item-img" th:alt="${item.title}">
+                  <img class="item-img" th:if="${item.itemImgDtoList[0].imgUrl==''}" src="/img/carrot_default.jpg">
+                  <img class="item-img" th:unless="${item.itemImgDtoList[0].imgUrl==''}" th:src="${item.itemImgDtoList[0].imgUrl}">
               </div>
               <hr>
 
@@ -280,5 +280,8 @@
                 <button id="chatBt">관련 채팅보기</button>
             </div>
           </div>
+
+          <script src="http://code.jquery.com/jquery-latest.js"></script>
+          <script src="/js/saleEdit.js"></script>
       </body>
 </html>

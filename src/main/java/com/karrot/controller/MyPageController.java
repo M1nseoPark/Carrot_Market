@@ -6,6 +6,7 @@ import com.karrot.dto.MainItemDto;
 import com.karrot.dto.MemberDto;
 import com.karrot.dto.MemberUpdateDto;
 import com.karrot.entity.Item;
+import com.karrot.entity.ItemImg;
 import com.karrot.entity.Member;
 import com.karrot.entity.MemberImg;
 import com.karrot.service.*;
@@ -30,6 +31,7 @@ public class MyPageController {
 
     private final MemberService memberService;
     private final ItemService itemService;
+    private final ItemImgService itemImgService;
     private final ItemLikeService itemLikeService;
     private final MemberImgService memberImgService;
 
@@ -119,13 +121,14 @@ public class MyPageController {
 
     // 판매내역 페이지에서 상품 수정 (게시글 삭제)
     @GetMapping(value = "/sale/edit/{itemId}/delete")
-    public String mySalePageEditDelete(@PathVariable("itemId") Long itemId, Model model) {
-        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
+    public String mySalePageEditDelete(@PathVariable("itemId") Long itemId) {
+        Item item = itemService.findItem(itemId);
 
-        model.addAttribute("item", itemFormDto);
-        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
-        return "mypage/saleEdit";
+        itemService.deleteItem(itemId);
+        itemImgService.deleteItemImg(itemId);
+        itemLikeService.deleteLike(itemId);
+
+        return "mypage/saleList";
     }
 
     // 판매내역 페이지에서 판매상태 변경

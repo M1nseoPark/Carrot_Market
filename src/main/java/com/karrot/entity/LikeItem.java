@@ -19,6 +19,8 @@ public class LikeItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long itemInfo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="i_id")
     private Item item;
@@ -28,8 +30,9 @@ public class LikeItem {
     private Member member;
 
     @Builder
-    public LikeItem(Member member, Item item) {
+    public LikeItem(Member member, Item item, Long itemInfo) {
         this.member = member;
         this.item = item;
+        this.itemInfo = itemInfo;
     }
 }

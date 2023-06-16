@@ -67,8 +67,7 @@ public class ItemService {
             itemImgDtoList.add(itemImgDto);
         }
 
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(EntityNotFoundException::new);
+        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
         ItemFormDto itemFormDto = ItemFormDto.of(item);
         itemFormDto.setItemImgDtoList(itemImgDtoList);
         return itemFormDto;
@@ -111,6 +110,11 @@ public class ItemService {
     @Transactional(readOnly = true)
     public List<MainItemDto> getSellerItemListSold(Long sellerId) {
         return itemRepository.getSellerItemListSold(sellerId);
+    }
+
+    @Transactional
+    public void deleteItem(Long itemId) {
+        itemRepository.deleteById(itemId);
     }
 
     // 판매 상태 변경

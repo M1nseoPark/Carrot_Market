@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class MemberDto {
@@ -17,10 +19,13 @@ public class MemberDto {
 
     private Long memberImgId;
 
+    private List<Long> likeItem;
+
     @Builder
-    public MemberDto(Long id, String nick, MemberImg imgUrl) {
+    public MemberDto(Long id, String nick, MemberImg imgUrl, List<Long> likeItem) {
         this.id = id;
         this.nick = nick;
         this.imgUrl = imgUrl;
+        this.likeItem = likeItem;
     }
 }

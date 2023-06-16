@@ -58,4 +58,9 @@ public class ItemImgService {
             savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
         }
     }
+
+    @Transactional
+    public void deleteItemImg(Long itemImgId) {
+        itemImgRepository.deleteByItemId(itemImgId);
+    }
 }

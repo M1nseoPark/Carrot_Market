@@ -110,7 +110,7 @@
                 padding-top: 10px;
             }
 
-            #item-image {
+            .item-image {
                 width: 250px;
                 height: 250px;
                 margin-left: 40px;
@@ -167,7 +167,8 @@
         <div class="row">
             <th:block th:each="item : ${items}">
                 <div>
-                    <img id="item-image" th:src="${item.imgUrl}" th:alt="${item.imgUrl}">
+                    <img class="item-image" th:if="${item.imgUrl==''}" src="/img/carrot_default.jpg">
+                    <img class="item-image" th:unless="${item.imgUrl==''}" th:src="${item.imgUrl}">
                     <div id="item-info">
                         <p class="item-text">[[${item.title}]]</p>
                         <p class="item-text">[[${item.price}]]원</p>

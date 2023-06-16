@@ -52,7 +52,7 @@
             border-radius: 50px;
           }
 
-          #item-img {
+          .item-img {
             margin-left: 40px;
             height: 500px;
           }
@@ -185,7 +185,8 @@
 
             <div class="d-flex">
               <div class="repImgDiv">
-                <img th:src="${item.itemImgDtoList[0].imgUrl}" id="item-img" th:alt="${item.title}">
+                  <img th:if="${item.itemImgDtoList[0].imgUrl==''}" src="/img/carrot_default.jpg" class="item-img">
+                  <img th:unless="${item.itemImgDtoList[0].imgUrl==''}" th:src="${item.itemImgDtoList[0].imgUrl}" class="item-img">
               </div>
               <hr>
 
@@ -233,14 +234,16 @@
                   <table>
                       <tr th:if="${seller.size() > 0}">
                           <td>
-                              <img th:src="${seller[0].imgUrl}" class="seller-img">
+                              <img th:if="${seller[0].imgUrl!=''}" th:src="${seller[0].imgUrl}" class="seller-img">
+                              <img th:unless="${seller[0].imgUrl!=''}" src="/img/carrot_default.jpg" class="seller-img">
                               <div class="seller-text">
                                   <p class="text">[[${seller[0].title}]]</p>
                                   <p class="text">[[${seller[0].price}]]원</p>
                               </div>
                           </td>
                           <td th:if="${seller.size() > 1}">
-                              <img th:src="${seller[1].imgUrl}" class="seller-img">
+                              <img th:if="${seller[1].imgUrl!=''}" th:src="${seller[1].imgUrl}" class="seller-img">
+                              <img th:unless="${seller[1].imgUrl!=''}" src="/img/carrot_default.jpg" class="seller-img">
                               <div class="seller-text">
                                   <p class="text">[[${seller[1].title}]]</p>
                                   <p class="text">[[${seller[1].price}]]원</p>
@@ -249,14 +252,16 @@
                       </tr>
                       <tr th:if="${seller.size() > 2}">
                           <td>
-                              <img th:src="${seller[2].imgUrl}" class="seller-img">
+                              <img th:if="${seller[2].imgUrl!=''}" th:src="${seller[2].imgUrl}" class="seller-img">
+                              <img th:unless="${seller[2].imgUrl!=''}" src="/img/carrot_default.jpg" class="seller-img">
                               <div class="seller-text">
                                   <p class="text">[[${seller[2].title}]]</p>
                                   <p class="text">[[${seller[2].price}]]원</p>
                               </div>
                           </td>
                           <td th:if="${seller.size() > 3}">
-                              <img th:src="${seller[3].imgUrl}" class="seller-img">
+                              <img th:if="${seller[3].imgUrl!=''}" th:src="${seller[3].imgUrl}" class="seller-img">
+                              <img th:unless="${seller[3].imgUrl!=''}" src="/img/carrot_default.jpg" class="seller-img">
                               <div class="seller-text">
                                   <p class="text">[[${seller[3].title}]]</p>
                                   <p class="text">[[${seller[3].price}]]원</p>
@@ -268,9 +273,10 @@
             </div>
 
             <div id="footer">
-              <button id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
-              <h3 id="price">[[${item.price}]]원</h3>
-              <button id="chatBt">채팅하기</button>
+                <button th:if="${like=='true'}" id="like-icon-full" class="material-symbols-outlined">favorite</button>
+                <button th:unless="${like=='true'}" id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
+                <h3 id="price">[[${item.price}]]원</h3>
+                <button id="chatBt">채팅하기</button>
             </div>
           </div>
 

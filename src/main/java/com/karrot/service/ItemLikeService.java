@@ -19,6 +19,7 @@ public class ItemLikeService {
     private final ItemRepository itemRepository;
     private final ItemLikeRepository itemLikeRepository;
 
+    // 특정 사용자의 관심 상품 목록
     @Transactional(readOnly = true)
     public List<MainItemDto> getLikeItemList(Member member) {
         return itemRepository.getLikeItemList(member.getId());
@@ -37,5 +38,10 @@ public class ItemLikeService {
     @Transactional
     public LikeItem addLike(LikeItem likeItem) {
         return itemLikeRepository.save(likeItem);
+    }
+
+    @Transactional
+    public void deleteLike(Long itemId) {
+        itemLikeRepository.deleteByItemId(itemId);
     }
 }
