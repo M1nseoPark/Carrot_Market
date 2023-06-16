@@ -124,9 +124,9 @@ public class MyPageController {
     public String mySalePageEditDelete(@PathVariable("itemId") Long itemId) {
         Item item = itemService.findItem(itemId);
 
-        itemService.deleteItem(itemId);
-        itemImgService.deleteItemImg(itemId);
         itemLikeService.deleteLike(itemId);
+        itemImgService.deleteItemImg(itemId);
+        itemService.deleteItem(itemId);
 
         return "mypage/saleList";
     }

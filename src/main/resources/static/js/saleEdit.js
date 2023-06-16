@@ -1,7 +1,20 @@
-function button_event(obj){
+function button_event(itemId) {
     if (confirm("게시글을 정말 삭제 하시겠어요?") == true) {    //확인
-        obj.setAttribute("th:href", "@{http://localhost/mypage/sale/edit/{itemId}/delete(itemId=${item.id})}")
-    } else {   //취소
+        const Url = "http://localhost/mypage/sale/edit/"+itemId+"/delete";
+
+        $.ajax({
+            url: Url,
+            type: "GET",
+            success: function(result) {
+                console.log(result);
+                location.href = "http://localhost/mypage/sale/SELL";
+            },
+            error: function(error) {
+                console.log('Error ${error}');
+            }
+        });
+    }
+    else {   //취소
         return;
     }
 }

@@ -226,7 +226,7 @@
                       <span id="menu-bt" class="material-symbols-outlined">more_vert</span>
                       <div class="edit-menu">
                           <p class="edit"><a class="edit-a" th:href="@{http://localhost/mypage/sale/edit/{itemId}/edit(itemId=${item.id})}">게시글 수정</a></p>
-                          <p class="edit"><a class="edit-a" th:href="@{http://localhost/mypage/sale/edit/{itemId}/delete(itemId=${item.id})}">삭제</a></p>
+                          <p class="edit"><a class="edit-a" th:onclick="button_event([[${item.id}]])">삭제</a></p>
                       </div>
                   </div>
 
