@@ -127,4 +127,15 @@ public class ItemController {
 
         return "success";
     }
+
+    // 채팅하기
+    @GetMapping(value = "item/{itemId}/chat")
+    public String chatGET(Model model, @PathVariable("itemId") Long itemId) {
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        log.info("@ChatController, chat GET()");
+
+        model.addAttribute("item", itemFormDto);
+        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
+        return "item/chatForm";
+    }
 }
