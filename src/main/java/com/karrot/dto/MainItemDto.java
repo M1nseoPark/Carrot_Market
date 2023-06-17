@@ -1,6 +1,7 @@
 package com.karrot.dto;
 
 import com.karrot.constant.ItemSellStatus;
+import com.karrot.entity.Member;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +23,10 @@ public class MainItemDto {
 
     private ItemSellStatus status;
 
+    private Member member;
+
     @QueryProjection
-    public MainItemDto(Long id, String title, String detail, String imgUrl, Integer price, Integer like, ItemSellStatus status) {
+    public MainItemDto(Long id, String title, String detail, String imgUrl, Integer price, Integer like, ItemSellStatus status, Member member) {
         this.id = id;
         this.title = title;
         this.detail = detail;
@@ -31,6 +34,7 @@ public class MainItemDto {
         this.price = price;
         this.like = like;
         this.status = status;
+        this.member = member;
     }
 
 }

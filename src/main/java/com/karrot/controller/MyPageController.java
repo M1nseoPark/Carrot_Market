@@ -97,7 +97,6 @@ public class MyPageController {
     @GetMapping(value = "/sale/edit/{itemId}")
     public String mySalePageEdit(@PathVariable("itemId") Long itemId, Model model) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
 
         model.addAttribute("item", itemFormDto);
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());

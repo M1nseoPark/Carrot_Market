@@ -67,7 +67,6 @@ public class ItemController {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         Member member = memberService.findMember(userDetails.getUsername());
         List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
-        System.out.println(member.getLikeItem().toString());
 
         if (member.getLikeItem().contains(itemId)) {
             model.addAttribute("like", "true");
@@ -86,7 +85,7 @@ public class ItemController {
     }
 
     // 판매상품 보기 페이지 (전체)
-    @GetMapping(value = "/item/{itemId}/{sellerId}")   // -> 링크 이렇게 해야 상세페이지랑 안겹침
+    @GetMapping(value = "/item/{itemId}/{sellerId}")   // -> 링크 이렇게 해야 상세페이지랑 안 겹침
     public String itemSeller(Model model, @PathVariable("sellerId") Long sellerId, @PathVariable("itemId") Long itemId) {
         List<MainItemDto> sellerList = itemService.getSellerItemList(sellerId);
         model.addAttribute("items", sellerList);

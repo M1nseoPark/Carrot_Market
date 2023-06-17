@@ -1,5 +1,6 @@
 package com.karrot.dto;
 
+import com.karrot.entity.Member;
 import com.karrot.entity.MemberImg;
 import lombok.Builder;
 import lombok.Getter;

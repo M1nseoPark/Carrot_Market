@@ -38,7 +38,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
@@ -63,7 +64,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"), item.id.in(
@@ -91,7 +93,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"),
@@ -120,7 +123,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
                 .where(itemImg.repimgYn.eq("Y"), item.status.eq(ItemSellStatus.SOLD_OUT), item.id.in(
@@ -147,9 +151,11 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
+                .join(itemImg.item, item)
                 .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId))
                 .fetch();
     }
@@ -169,9 +175,11 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
+                .join(itemImg.item, item)
                 .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId),
                         item.status.eq(ItemSellStatus.SELL).or(item.status.eq(ItemSellStatus.RESERVE)))
                 .fetch();
@@ -192,9 +200,11 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                 itemImg.imgUrl,
                                 item.price,
                                 item.like,
-                                item.status)
+                                item.status,
+                                item.member)
                 )
                 .from(itemImg)
+                .join(itemImg.item, item)
                 .where(itemImg.repimgYn.eq("Y"), item.member.id.eq(ownerId), item.status.eq(ItemSellStatus.SOLD_OUT))
                 .fetch();
     }
