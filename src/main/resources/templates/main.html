@@ -151,7 +151,7 @@
                 <th:block th:each="item : ${items}">
                     <div class="col-md-4 margin">
                         <div class="card">
-                            <a th:if="${member.nick != item.member.nick}" th:href="'/item/' +${item.id}">
+                            <a th:href="'/item/' +${item.id}">
                                 <img class="item-image" th:if="${item.imgUrl == ''}" src="/img/carrot_default.jpg">
                                 <img class="item-image" th:unless="${item.imgUrl == ''}" th:src="${item.imgUrl}">
                                 <div class="item-info">
@@ -160,20 +160,6 @@
                                 </div>
                                 <div class="item-like" th:if="${item.like != 0}">
                                     <span id="like-icon" class="material-symbols-outlined">favorite</span>
-                                    <span class="item-text">[[${item.like}]]</span>
-                                </div>
-                                <hr>
-                            </a>
-
-                            <a th:unless="${member.nick != item.member.nick}" th:href="'/mypage/sale/edit/' +${item.id}">
-                                <img class="item-image" th:if="${item.imgUrl == ''}" src="/img/carrot_default.jpg">
-                                <img class="item-image" th:unless="${item.imgUrl == ''}" th:src="${item.imgUrl}">
-                                <div class="item-info">
-                                    <p class="item-text">[[${item.title}]]</p>
-                                    <p class="item-text">[[${item.price}]]원</p>
-                                </div>
-                                <div class="item-like" th:if="${item.like != 0}">
-                                    <span id="like-icon-2" class="material-symbols-outlined">favorite</span>
                                     <span class="item-text">[[${item.like}]]</span>
                                 </div>
                                 <hr>

@@ -5,7 +5,7 @@ $(document).ready(function() {
         send();
     });
 
-    const websocket = new WebSocket("ws://localhost:8080/ws/chat");
+    const websocket = new WebSocket("ws://" + location.host + "/ws/chat");
 
     websocket.onmessage = onMessage;
 

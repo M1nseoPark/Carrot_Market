@@ -1,6 +1,5 @@
 package com.karrot.controller;
 
-import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.ItemSearchDto;
 import com.karrot.dto.MainItemDto;
 import com.karrot.dto.MemberDto;
@@ -8,6 +7,7 @@ import com.karrot.entity.Member;
 import com.karrot.service.ItemService;
 import com.karrot.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class MainController {

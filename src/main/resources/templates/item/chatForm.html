@@ -55,6 +55,12 @@
                   vertical-align: top;
               }
 
+              #chat-area {
+                  margin-left: 20px;
+                  margin-right: 20px;
+                  margin-bottom: 60px;
+              }
+
               #chat-text {
                   font-size: 20px;
               }
@@ -67,6 +73,9 @@
                   padding-left: 10px;
                   padding-right: 10px;
                   background-color: #CDC5C5;
+                  position: fixed;
+                  bottom: 0;
+                  margin-bottom: 10px;
               }
 
               #add-bt {
@@ -88,6 +97,24 @@
                   vertical-align: middle;
                   background-color: #CDC5C5;
                   border: none;
+              }
+
+              .talk-box {
+                  background-color: #D9D9D9;
+                  margin-top: 20px;
+                  width: 40%;
+                  margin-bottom: 20px;
+                  padding: 15px;
+                  border-radius: 10px;
+              }
+
+              .talk-box-2 {
+                  background-color: #FF931E;
+                  float: right;
+                  width: 40%;
+                  padding: 15px;
+                  border-radius: 10px;
+                  color: white;
               }
           </style>
     </head>
@@ -122,13 +149,13 @@
             <script th:inline="javascript">
                 $(document).ready(function(){
 
-                const username = [[${#authentication.principal.username}]];
+                const username = [[${member.nick}]];
 
                 $("#send-bt").on("click", (e) => {
                     send();
                 });
 
-                const websocket = new WebSocket("ws://localhost:8080/ws/chat");
+                const websocket = new WebSocket("ws://" + location.host + "/ws/chat");
 
                 websocket.onmessage = onMessage;
                 websocket.onopen = onOpen;
@@ -150,11 +177,12 @@
                 function onMessage(msg) {
                     var data = msg.data;
                     var sessionId = null;
+
                     //데이터를 보낸 사람
                     var message = null;
                     var arr = data.split(":");
 
-                    for(var i=0; i<arr.length; i++){
+                    for(var i=0; i<arr.length; i++) {
                         console.log('arr[' + i + ']: ' + arr[i]);
                     }
 
@@ -169,18 +197,16 @@
                     console.log("cur_session : " + cur_session);
 
                     //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-                    if(sessionId == cur_session){
-                        var str = "<div class='col-6'>";
-                        str += "<div class='alert alert-secondary'>";
-                        str += "<b>" + sessionId + " : " + message + "</b>";
-                        str += "</div></div>";
-                        $("#msgArea").append(str);
+                    if (sessionId == cur_session) {
+                        var str = "<div class='talk-box-2'>";
+                        str += "<p class='chat-text'>" + sessionId + " : " + message + "</p>";
+                        str += "</div><br><br><br>";
+                        $("#chat-area").append(str);
                     }
-                    else{
-                        var str = "<div class='col-6'>";
-                        str += "<div class='alert alert-warning'>";
-                        str += "<b>" + sessionId + " : " + message + "</b>";
-                        str += "</div></div>";
+                    else {
+                        var str = "<div class='talk-box'>";
+                        str += "<p class='chat-text'>" + sessionId + " : " + message + "</p>";
+                        str += "</div>";
                         $("#chat-area").append(str);
                     }
                 }

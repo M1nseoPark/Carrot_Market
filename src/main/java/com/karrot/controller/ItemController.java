@@ -130,10 +130,12 @@ public class ItemController {
 
     // 채팅하기
     @GetMapping(value = "item/{itemId}/chat")
-    public String chatGET(Model model, @PathVariable("itemId") Long itemId) {
+    public String chatGET(Model model, @PathVariable("itemId") Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
+        Member member = memberService.findMember(userDetails.getUsername());
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         log.info("@ChatController, chat GET()");
 
+        model.addAttribute("member", member);
         model.addAttribute("item", itemFormDto);
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
         return "item/chatForm";
