@@ -2,7 +2,6 @@ package com.karrot.controller;
 
 import com.karrot.dto.ItemFormDto;
 import com.karrot.dto.MainItemDto;
-import com.karrot.dto.MemberDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.LikeItem;
 import com.karrot.entity.Member;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -126,18 +124,5 @@ public class ItemController {
         itemService.addLike(item);
 
         return "success";
-    }
-
-    // 채팅하기
-    @GetMapping(value = "item/{itemId}/chat")
-    public String chatGET(Model model, @PathVariable("itemId") Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
-        Member member = memberService.findMember(userDetails.getUsername());
-        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        log.info("@ChatController, chat GET()");
-
-        model.addAttribute("member", member);
-        model.addAttribute("item", itemFormDto);
-        model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
-        return "item/chatForm";
     }
 }
