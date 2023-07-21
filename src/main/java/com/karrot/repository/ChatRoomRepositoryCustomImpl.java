@@ -5,18 +5,18 @@ import com.karrot.dto.QChatRoomDto;
 import com.karrot.entity.ChatRoom;
 import com.karrot.entity.Member;
 import com.karrot.entity.QChatRoom;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import javax.persistence.EntityManager;
 import java.util.List;
-
-import static com.karrot.entity.QItem.item;
-import static com.karrot.entity.QMember.member;
 
 public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom {
 
     private JPAQueryFactory queryFactory;
+
+    public ChatRoomRepositoryCustomImpl(EntityManager em) {
+        this.queryFactory = new JPAQueryFactory(em);
+    }
 
     @Override
     public List<ChatRoomDto> getChatRoomList(Long roomId) {
@@ -35,14 +35,19 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom {
     }
 
     @Override
-    public List<ChatRoom> getChatRoomId(Long itemId, Member seller) {
+    public List<ChatRoomDto> getChatRoomId(Long itemId, Member seller) {
 
         QChatRoom chatRoom = QChatRoom.chatRoom;
 
         return queryFactory
-                .selectFrom(chatRoom)
+                .select(
+                        new QChatRoomDto(
+                                chatRoom.id,
+                                chatRoom.seller
+                        )
+                )
+                .from(chatRoom)
                 .where(chatRoom.seller.eq(seller), chatRoom.item.id.eq(itemId))
                 .fetch();
     }
 }
-

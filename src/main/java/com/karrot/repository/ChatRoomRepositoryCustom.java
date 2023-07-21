@@ -10,5 +10,5 @@ public interface ChatRoomRepositoryCustom {
 
     List<ChatRoomDto> getChatRoomList(Long roomId);
 
-    List<ChatRoom> getChatRoomId(Long itemId, Member seller);
+    List<ChatRoomDto> getChatRoomId(Long itemId, Member seller);
 }

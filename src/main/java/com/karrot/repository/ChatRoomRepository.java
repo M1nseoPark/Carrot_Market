@@ -12,5 +12,5 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long>, ChatR
 
     List<ChatRoomDto> getChatRoomList(Long roomId);
 
-    List<ChatRoom> getChatRoomId(Long itemId, Member seller);
+    List<ChatRoomDto> getChatRoomId(Long itemId, Member seller);
 }
