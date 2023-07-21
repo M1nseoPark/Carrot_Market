@@ -161,7 +161,7 @@
               'opsz' 48
           }
 
-          #chatBt {
+          .chatBt {
             float: right;
             width: 100px;
             height: 50px;
@@ -280,7 +280,13 @@
                 <button th:if="${like=='true'}" id="like-icon-full" class="material-symbols-outlined">favorite</button>
                 <button th:unless="${like=='true'}" id="like-icon" class="material-symbols-outlined" onclick="addLike()">favorite</button>
                 <h3 id="price">[[${item.price}]]원</h3>
-                <button th:if="${item.status != T(com.karrot.constant.ItemSellStatus).SOLD_OUT}" id="chatBt"><a id="chatBt-a" th:href="'/item/' +${item.id}+'/chat'">채팅하기</a></button>
+
+                <div th:if="${item.status != T(com.karrot.constant.ItemSellStatus).SOLD_OUT}">
+                    <form th:if="${roomId == null}" th:action="@{/item/{itemId}/chat(itemId=${item.id})}" class="chatBt" method="post">
+                        <button type="submit">채팅하기1</button>
+                    </form>
+                    <button th:if="${roomId != null}" class="chatBt"><a id="chatBt-a" th:href="'/item/' +${item.id}+'/chat/' +${roomId}">채팅하기2</a></button>
+                </div>
             </div>
           </div>
 

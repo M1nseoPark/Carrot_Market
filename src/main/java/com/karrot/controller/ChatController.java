@@ -34,7 +34,7 @@ public class ChatController {
         log.info("Create Chat Room, senderNick: " + member.getNick());
         Long roomId = chatService.createRoom(item, member);
 
-        return "redirect:/item"+itemId+"/chat/"+roomId;
+        return "redirect:/item/"+itemId+"/chat/"+roomId;
     }
 
     // 채팅방 조회

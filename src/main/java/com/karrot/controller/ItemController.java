@@ -5,6 +5,7 @@ import com.karrot.dto.MainItemDto;
 import com.karrot.entity.Item;
 import com.karrot.entity.LikeItem;
 import com.karrot.entity.Member;
+import com.karrot.service.ChatService;
 import com.karrot.service.ItemLikeService;
 import com.karrot.service.ItemService;
 import com.karrot.service.MemberService;
@@ -29,6 +30,7 @@ public class ItemController {
     private final ItemService itemService;
     private final MemberService memberService;
     private final ItemLikeService itemLikeService;
+    private final ChatService chatService;
 
     @GetMapping(value = "/admin/item/new")
     public String itemForm(Model model) {
@@ -64,6 +66,7 @@ public class ItemController {
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         Member member = memberService.findMember(userDetails.getUsername());
+//        Long roomId = chatService.findRoomId(itemId, itemFormDto.getMember());
         List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
 
         if (member.getLikeItem().contains(itemId)) {
@@ -77,7 +80,7 @@ public class ItemController {
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
         model.addAttribute("seller", sellerList);
         model.addAttribute("sellerImg", itemFormDto.getMember().getMemberImg());
-
+//        model.addAttribute("roomId", roomId);
 
         return "item/itemDtl";
     }

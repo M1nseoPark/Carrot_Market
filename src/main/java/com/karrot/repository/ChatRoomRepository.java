@@ -2,6 +2,7 @@ package com.karrot.repository;
 
 import com.karrot.dto.ChatRoomDto;
 import com.karrot.entity.ChatRoom;
+import com.karrot.entity.Item;
 import com.karrot.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +12,5 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long>, ChatR
 
     List<ChatRoomDto> getChatRoomList(Long roomId);
 
-    List<ChatRoomDto> getChatRoomId(Long itemId, Member seller);
+    List<ChatRoom> getChatRoomId(Long itemId, Member seller);
 }

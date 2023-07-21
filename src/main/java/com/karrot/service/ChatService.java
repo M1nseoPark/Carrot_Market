@@ -32,9 +32,9 @@ public class ChatService {
     }
 
     public Long findRoomId(Long itemId, Member seller) {
-        List<ChatRoomDto> chatRoomDtoList = chatRoomRepository.getChatRoomId(itemId, seller);
+        List<ChatRoom> chatRoomDtoList = chatRoomRepository.getChatRoomId(itemId, seller);
 
-        if (chatRoomDtoList.size() > 0) {
+        if (chatRoomDtoList != null) {
             return chatRoomDtoList.get(0).getId();
         }
 
