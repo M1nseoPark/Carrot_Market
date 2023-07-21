@@ -66,7 +66,7 @@ public class ItemController {
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId, @AuthenticationPrincipal UserDetails userDetails) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         Member member = memberService.findMember(userDetails.getUsername());
-//        Long roomId = chatService.findRoomId(itemId, itemFormDto.getMember());
+        Long roomId = chatService.findRoomId(itemId, itemFormDto.getMember());
         List<MainItemDto> sellerList = itemService.getSellerItemList(itemFormDto.getMember().getId());
 
         if (member.getLikeItem().contains(itemId)) {
@@ -80,7 +80,7 @@ public class ItemController {
         model.addAttribute("sellerNick", itemFormDto.getMember().getNick());
         model.addAttribute("seller", sellerList);
         model.addAttribute("sellerImg", itemFormDto.getMember().getMemberImg());
-//        model.addAttribute("roomId", roomId);
+        model.addAttribute("roomId", roomId);
 
         return "item/itemDtl";
     }
