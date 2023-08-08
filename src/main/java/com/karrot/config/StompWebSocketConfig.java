@@ -1,7 +1,5 @@
 package com.karrot.config;
 
-import com.karrot.component.ChatHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
@@ -22,7 +20,7 @@ import org.springframework.web.socket.config.annotation.*;
 
 @EnableWebSocketMessageBroker
 @Configuration
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {

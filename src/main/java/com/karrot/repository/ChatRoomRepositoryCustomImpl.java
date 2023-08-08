@@ -2,7 +2,6 @@ package com.karrot.repository;
 
 import com.karrot.dto.ChatRoomDto;
 import com.karrot.dto.QChatRoomDto;
-import com.karrot.entity.ChatRoom;
 import com.karrot.entity.Member;
 import com.karrot.entity.QChatRoom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
