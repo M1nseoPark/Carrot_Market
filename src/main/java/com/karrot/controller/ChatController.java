@@ -59,12 +59,12 @@ public class ChatController {
     @MessageMapping(value = "/item/{itemId}/chat/enter")
     public void enter(ChatMsgDto message) {
         message.setMsg(message.getSender() + "님이 채팅방에 참여하셨습니다.");
-        template.convertAndSend("/sub/item/2/chat/1", message);
+        template.convertAndSend("/sub/item/"+ message.getItemId() + "/chat/" + message.getRoomId(), message);
     }
 
     @MessageMapping(value = "/item/{itemId}/chat/message")
     public void message(ChatMsgDto message) {
-//        template.convertAndSend("/sub/item/" + itemId + "/chat/" + Long.toString(msg.getChatRoom().getId()), msg);
-        template.convertAndSend("/sub/item/2/chat/1", message);
+//        chatService.saveChat(message);
+        template.convertAndSend("/sub/item/" + message.getItemId() + "/chat/" + message.getRoomId(), message);
     }
 }

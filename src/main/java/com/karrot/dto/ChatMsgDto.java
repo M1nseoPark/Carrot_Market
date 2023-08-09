@@ -15,7 +15,7 @@ public class ChatMsgDto {
 
     private String msg;
 
-    private ChatRoom chatRoom;
+    private Long roomId;
 
-    private Item item;
+    private Long itemId;
 }

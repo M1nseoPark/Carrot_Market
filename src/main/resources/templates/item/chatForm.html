@@ -199,7 +199,7 @@
                         var msg = document.getElementById("msg");
 
                         console.log(senderNick + ":" + msg.value);
-                        stomp.send('/pub/item/'+String(itemId)+'/chat/message', {}, JSON.stringify({roomId: roomId, msg: msg.value, sender: senderNick, senderId: senderId}));
+                        stomp.send('/pub/item/'+String(itemId)+'/chat/message', {}, JSON.stringify({roomId: roomId, sender: senderNick, msg: msg.value, itemId: itemId}));
                         msg.value = '';
                     });
                 });
