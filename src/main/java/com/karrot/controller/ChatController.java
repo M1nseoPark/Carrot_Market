@@ -52,6 +52,7 @@ public class ChatController {
 
         model.addAttribute("room", chatRoomDto);
         model.addAttribute("member", member);
+        model.addAttribute("seller", itemFormDto.getMember());
         model.addAttribute("item", itemFormDto);
         return "item/chatForm";
     }
