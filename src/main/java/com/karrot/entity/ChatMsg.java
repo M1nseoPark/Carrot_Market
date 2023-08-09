@@ -21,19 +21,14 @@ public class ChatMsg {
 
     private String msg;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "r_id")
     private ChatRoom chatRoom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "i_id")
-    private Item item;
-
     @Builder
-    public ChatMsg(String sender, String msg, ChatRoom chatRoom, Item item) {
+    public ChatMsg(String sender, String msg, ChatRoom chatRoom) {
         this.sender = sender;
         this.msg = msg;
         this.chatRoom = chatRoom;
-        this.item = item;
     }
 }

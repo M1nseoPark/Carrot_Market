@@ -8,7 +8,6 @@ import com.karrot.entity.Item;
 import com.karrot.entity.Member;
 import com.karrot.repository.ChatMsgRepository;
 import com.karrot.repository.ChatRoomRepository;
-import com.karrot.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ public class ChatService {
 
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMsgRepository chatMsgRepository;
-    private final MemberRepository memberRepository;
 
     @Transactional
     public Long createRoom(Item item, Member seller) {
@@ -49,8 +47,9 @@ public class ChatService {
 
     @Transactional
     public void saveChat(ChatMsgDto chatMsgDto) {
-        // List<ChatRoomDto> chatRooms = chatRoomRepository.getChatRoomList(chatMsgDto.getChatRoom().getId());
-//        ChatMsg chatMsg = new ChatMsg(chatMsgDto.getSender(), chatMsgDto.getMsg(), chatMsgDto.getRoomId(), chatMsgDto.getItemId());
-//        chatMsgRepository.save(chatMsg);
+        List<ChatRoomDto> chatRooms = chatRoomRepository.getChatRoomList(chatMsgDto.getRoomId());
+
+        ChatMsg chatMsg = chatMsgDto.createChat(chatMsgDto.getSender(), chatMsgDto.getMsg(), chatRooms.get(0));
+        chatMsgRepository.save(chatMsg);
     }
 }
