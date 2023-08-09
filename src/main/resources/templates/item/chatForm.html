@@ -157,7 +157,7 @@
                     var senderNick = [[${member.nick}]];
                     var senderId =  [[${member.id}]];
 
-                    console.log(roomId + ", " + senderNick);
+                    console.log(roomId + ", " + senderNick + ", " + itemId);
 
                     var sockJs = new SockJS("/stomp/chat");
 
@@ -174,7 +174,7 @@
                            var content = JSON.parse(chat.body);
 
                            var nick = content.sender;
-                           var message = content.message;
+                           var message = content.msg;
                            var str = '';
 
                            if (nick === senderNick) {
@@ -189,11 +189,9 @@
                                str += "</div>";
                                $("#chat-area").append(str);
                            }
-
-                            $("#chat-area").append(str);
                        });
 
-                       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, sender: senderNick}))
+                       stomp.send('/pub/item/'+String(itemId)+'/chat/enter', {}, JSON.stringify({roomId: roomId, sender: senderNick, itemId: itemId}))
                     });
 
                     // 3. send(path, header, message)로 메시지를 보낼 수 있음
@@ -201,7 +199,7 @@
                         var msg = document.getElementById("msg");
 
                         console.log(senderNick + ":" + msg.value);
-                        stomp.send('/pub/item/'+String(itemId)+'/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, sender: senderNick, senderId: senderId}));
+                        stomp.send('/pub/item/'+String(itemId)+'/chat/message', {}, JSON.stringify({roomId: roomId, msg: msg.value, sender: senderNick, senderId: senderId}));
                         msg.value = '';
                     });
                 });

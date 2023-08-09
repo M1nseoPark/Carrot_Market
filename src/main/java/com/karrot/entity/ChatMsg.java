@@ -25,10 +25,15 @@ public class ChatMsg {
     @JoinColumn(name = "r_id")
     private ChatRoom chatRoom;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "i_id")
+    private Item item;
+
     @Builder
-    public ChatMsg(String sender, String msg, ChatRoom chatRoom) {
+    public ChatMsg(String sender, String msg, ChatRoom chatRoom, Item item) {
         this.sender = sender;
         this.msg = msg;
         this.chatRoom = chatRoom;
+        this.item = item;
     }
 }

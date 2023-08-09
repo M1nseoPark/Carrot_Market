@@ -56,15 +56,15 @@ public class ChatController {
         return "item/chatForm";
     }
 
-    @MessageMapping(value = "/chat/enter")
-    public void enter(ChatMsgDto msg) {
-        msg.setMsg(msg.getSender() + "님이 채팅방에 참여하셨습니다.");
-        template.convertAndSend("/sub/chat/room/" + msg.getId(), msg);
+    @MessageMapping(value = "/item/{itemId}/chat/enter")
+    public void enter(ChatMsgDto message) {
+        message.setMsg(message.getSender() + "님이 채팅방에 참여하셨습니다.");
+        template.convertAndSend("/sub/item/2/chat/1", message);
     }
 
-    @MessageMapping(value = "item/{itemId}/chat/message")
-    public void message(ChatMsgDto msg, @PathVariable("itemId") String itemId) {
+    @MessageMapping(value = "/item/{itemId}/chat/message")
+    public void message(ChatMsgDto message) {
 //        template.convertAndSend("/sub/item/" + itemId + "/chat/" + Long.toString(msg.getChatRoom().getId()), msg);
-        template.convertAndSend("/sub/item/" + itemId + "/chat/11", msg);
+        template.convertAndSend("/sub/item/2/chat/1", message);
     }
 }

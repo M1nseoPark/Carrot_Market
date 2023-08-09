@@ -1,6 +1,7 @@
 package com.karrot.dto;
 
 import com.karrot.entity.ChatRoom;
+import com.karrot.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,6 @@ public class ChatMsgDto {
     private String msg;
 
     private ChatRoom chatRoom;
+
+    private Item item;
 }
