@@ -12,17 +12,14 @@ ERD - https://www.erdcloud.com/d/yGjLHh7XXCrk5AzH4
 
 ## 결과물
 **1. 홈화면**
-   
 ![](images/start.png)
 
 <br></br>
 **2. 회원가입**
-
 ![](images/join.png)
 
 <br></br>
 **3. 로그인**
-
 ![](images/log_in.png)
 
 <br></br>
@@ -31,7 +28,6 @@ ERD - https://www.erdcloud.com/d/yGjLHh7XXCrk5AzH4
 
 <br></br>
 **5. 게시글 입력**
-
 ![](images/write_post.png)
 
 <br></br>
