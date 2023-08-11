@@ -11,11 +11,29 @@ ERD - https://www.erdcloud.com/d/yGjLHh7XXCrk5AzH4
 <br></br>
 
 ## 결과물
-[](./image/start.png)
-홈화면
+**1. 홈화면**
+   
+![](images/start.png)
+
 <br></br>
-[](./image/join.png)
-회원가입
+**2. 회원가입**
+
+![](images/join.png)
+
 <br></br>
-[](./image/log_in.png)
-로그인
+**3. 로그인**
+
+![](images/log_in.png)
+
+<br></br>
+**4. 메인화면**
+![](images/main.png)
+
+<br></br>
+**5. 게시글 입력**
+
+![](images/write_post.png)
+
+<br></br>
+**6. 마이페이지**
+![](images/mypage.png)
