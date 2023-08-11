@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .talk-box-2 {
+            float: right;
+            width: 40%
+            margin-bottom: 20px;
+        }
+
+        .msg-box-2 {
+            float: right;
+            background-color: #FF931E;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .talk-box {
+            clear: right;
+            width: 40%;
+            margin-bottom: 20px;
+        }
+
+        .msg-box {
+            display: inline-block;
+            background-color: #D9D9D9;
+            width: 40%;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #chat-text {
+            font-size: 20px;
+        }
+
+        .profile-box-2 {
+            float: right;
+            margin-left: 15px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .profile-box {
+            display: inline-block;
+            margin-right: 15px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class='talk-box-2'>
+        <div class='profile-box-2'>
+            <img class="profile-img" src="../static/img/user.png"><br>
+            <span class="nick-text">닉네임</span>
+        </div>
+        <div class='msg-box-2'>
+            <p class='chat-text'>
+                nick + " : " + message
+            </p>
+        </div>
+    </div>
+
+    <div class='talk-box'>
+        <div class='profile-box'>
+            <img class="profile-img" src="../static/img/user.png"><br>
+            <span class="nick-text">닉네임</span>
+        </div>
+        <div class='msg-box'>
+            <p class='chat-text'>
+                nick + " : " + message
+            </p>
+        </div>
+    </div>
+</body>
+</html>

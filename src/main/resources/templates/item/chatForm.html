@@ -117,39 +117,39 @@
                   color: white;
               }
           </style>
-    </head>
+</head>
 
-    <body>
-        <div id="header">
-            <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
-            <h2>[[${sellerNick}]]</h2>
-        </div>
-        <hr>
+<body>
+<div id="header">
+    <button id="back" class="material-symbols-outlined" onclick="history.back()">arrow_back</button>
+    <h2>[[${sellerNick}]]</h2>
+</div>
+<hr>
 
-        <div>
-            <img class="chat-img" th:if="${item.itemImgDtoList[0].imgUrl==''}" src="/img/carrot_default.jpg">
-            <img class="chat-img" th:unless="${item.itemImgDtoList[0].imgUrl==''}" th:src="${item.itemImgDtoList[0].imgUrl}">
-            <div id="chat-info">
-                <p class="chat-text">판매중</p>
-                <p class="chat-text">[[${item.price}]]원</p>
-            </div>
-            <hr>
+<div>
+    <img class="chat-img" th:if="${item.itemImgDtoList[0].imgUrl==''}" src="/img/carrot_default.jpg">
+    <img class="chat-img" th:unless="${item.itemImgDtoList[0].imgUrl==''}" th:src="${item.itemImgDtoList[0].imgUrl}">
+    <div id="chat-info">
+        <p class="chat-text">판매중</p>
+        <p class="chat-text">[[${item.price}]]원</p>
+    </div>
+    <hr>
 
-            <div id="chat-area"></div>
+    <div id="chat-area"></div>
 
-            <div id="chat-msg">
-                <span id="add-bt" class="material-symbols-outlined">add</span>
-                <input type="text" id="msg" placeholder="메시지 보내기">
-                <button id="send-bt" class="material-symbols-outlined">send</button>
-            </div>
-        </div>
+    <div id="chat-msg">
+        <span id="add-bt" class="material-symbols-outlined">add</span>
+        <input type="text" id="msg" placeholder="메시지 보내기">
+        <button id="send-bt" class="material-symbols-outlined">send</button>
+    </div>
+</div>
 
-        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <th:block layout:fragment="script">
-            <script th:inline="javascript">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
                 $(document).ready(function(){
 
                     var roomId = [[${room.id}]];
@@ -204,6 +204,6 @@
                     });
                 });
             </script>
-        </th:block>
-    </body>
+</th:block>
+</body>
 </html>

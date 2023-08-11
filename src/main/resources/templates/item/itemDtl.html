@@ -167,7 +167,7 @@
           }
 
           .chatBt {
-            width: 100px;
+            width: 110px;
             height: 50px;
             margin-right: 50px;
             background-color: #FF931E;
@@ -293,10 +293,15 @@
                 </div>
 
                 <div id="chat" th:if="${item.status != T(com.karrot.constant.ItemSellStatus).SOLD_OUT}">
-                    <form th:if="${roomId == null}" th:action="@{/item/{itemId}/chat(itemId=${item.id})}" method="post">
-                        <button type="submit" class="chatBt">채팅하기</button>
-                    </form>
-                    <button th:if="${roomId != null}" class="chatBt"><a th:href="'/item/' +${item.id}+'/chat/' +${roomId}" class="text-3">채팅하기</a></button>
+                    <div th:unless="${memberNick==sellerNick}">
+                        <form th:if="${roomId == null}" th:action="@{/item/{itemId}/chat(itemId=${item.id})}" method="post">
+                            <button type="submit" class="chatBt">채팅하기</button>
+                        </form>
+                        <button th:if="${roomId != null}" class="chatBt"><a th:href="'/item/' +${item.id}+'/chat/' +${roomId}" class="text-3">채팅하기</a></button>
+                    </div>
+                    <div th:if="${memberNick==sellerNick}">
+                        <button th:if="${roomId != null}" class="chatBt">관련 채팅보기</button>
+                    </div>
                 </div>
             </div>
           </div>

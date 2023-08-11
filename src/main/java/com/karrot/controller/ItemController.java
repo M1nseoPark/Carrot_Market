@@ -81,6 +81,7 @@ public class ItemController {
         model.addAttribute("seller", sellerList);
         model.addAttribute("sellerImg", itemFormDto.getMember().getMemberImg());
         model.addAttribute("roomId", roomId);
+        model.addAttribute("memberNick", member.getNick());
 
         return "item/itemDtl";
     }
